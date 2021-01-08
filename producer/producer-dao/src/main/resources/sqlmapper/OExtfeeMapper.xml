@@ -1,0 +1,708 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zml.demo.producer.dao.mapper.OExtfeeMapper">
+  <resultMap id="BaseResultMap" type="com.zml.demo.producer.dao.model.OExtfee">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="extfee_id" jdbcType="VARCHAR" property="extfeeId" />
+    <result column="extfee_pay_id" jdbcType="VARCHAR" property="extfeePayId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="product_id" jdbcType="VARCHAR" property="productId" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="loan_model" jdbcType="TINYINT" property="loanModel" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="credit_score" jdbcType="VARCHAR" property="creditScore" />
+    <result column="register_time" jdbcType="TIMESTAMP" property="registerTime" />
+    <result column="full_name" jdbcType="VARCHAR" property="fullName" />
+    <result column="is_realname" jdbcType="TINYINT" property="isRealname" />
+    <result column="gender" jdbcType="VARCHAR" property="gender" />
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="is_contact_relative_overdue" jdbcType="TINYINT" property="isContactRelativeOverdue" />
+    <result column="contact_relative_contact_count" jdbcType="INTEGER" property="contactRelativeContactCount" />
+    <result column="is_contact_friend_overdue" jdbcType="TINYINT" property="isContactFriendOverdue" />
+    <result column="contact_friend_contact_count" jdbcType="INTEGER" property="contactFriendContactCount" />
+    <result column="contact_sensitive_count" jdbcType="INTEGER" property="contactSensitiveCount" />
+    <result column="is_idcard_black" jdbcType="TINYINT" property="isIdcardBlack" />
+    <result column="loan_count" jdbcType="INTEGER" property="loanCount" />
+    <result column="idcard_overdue_count" jdbcType="INTEGER" property="idcardOverdueCount" />
+    <result column="living_score" jdbcType="VARCHAR" property="livingScore" />
+    <result column="face_comparison_similarity" jdbcType="VARCHAR" property="faceComparisonSimilarity" />
+    <result column="is_ocr" jdbcType="TINYINT" property="isOcr" />
+    <result column="idcard_recent_overdue_days" jdbcType="INTEGER" property="idcardRecentOverdueDays" />
+    <result column="idcard_history_overdue_days" jdbcType="INTEGER" property="idcardHistoryOverdueDays" />
+    <result column="idcard_about_contact_count_180_days" jdbcType="INTEGER" property="idcardAboutContactCount180Days" />
+    <result column="bank_account_about_idcard_count_180_days" jdbcType="INTEGER" property="bankAccountAboutIdcardCount180Days" />
+    <result column="phone_about_emergency_count" jdbcType="INTEGER" property="phoneAboutEmergencyCount" />
+    <result column="contact_valid_count" jdbcType="INTEGER" property="contactValidCount" />
+    <result column="contact_about_overdue_count" jdbcType="INTEGER" property="contactAboutOverdueCount" />
+    <result column="contact_about_bad_overdue_count" jdbcType="INTEGER" property="contactAboutBadOverdueCount" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, create_time, update_time, extfee_id, extfee_pay_id, user_id, product_id, status, 
+    loan_model, mobile, credit_score, register_time, full_name, is_realname, gender, 
+    age, province, is_contact_relative_overdue, contact_relative_contact_count, is_contact_friend_overdue, 
+    contact_friend_contact_count, contact_sensitive_count, is_idcard_black, loan_count, 
+    idcard_overdue_count, living_score, face_comparison_similarity, is_ocr, idcard_recent_overdue_days, 
+    idcard_history_overdue_days, idcard_about_contact_count_180_days, bank_account_about_idcard_count_180_days, 
+    phone_about_emergency_count, contact_valid_count, contact_about_overdue_count, contact_about_bad_overdue_count
+  </sql>
+  <select id="selectByExample" parameterType="com.zml.demo.producer.dao.model.OExtfeeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from o_extfee
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from o_extfee
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from o_extfee
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zml.demo.producer.dao.model.OExtfeeExample">
+    delete from o_extfee
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zml.demo.producer.dao.model.OExtfee">
+    insert into o_extfee (id, create_time, update_time, 
+      extfee_id, extfee_pay_id, user_id, 
+      product_id, status, loan_model, 
+      mobile, credit_score, register_time, 
+      full_name, is_realname, gender, 
+      age, province, is_contact_relative_overdue, 
+      contact_relative_contact_count, is_contact_friend_overdue, 
+      contact_friend_contact_count, contact_sensitive_count, 
+      is_idcard_black, loan_count, idcard_overdue_count, 
+      living_score, face_comparison_similarity, 
+      is_ocr, idcard_recent_overdue_days, idcard_history_overdue_days, 
+      idcard_about_contact_count_180_days, bank_account_about_idcard_count_180_days, 
+      phone_about_emergency_count, contact_valid_count, 
+      contact_about_overdue_count, contact_about_bad_overdue_count
+      )
+    values (#{id,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{extfeeId,jdbcType=VARCHAR}, #{extfeePayId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
+      #{productId,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{loanModel,jdbcType=TINYINT}, 
+      #{mobile,jdbcType=VARCHAR}, #{creditScore,jdbcType=VARCHAR}, #{registerTime,jdbcType=TIMESTAMP}, 
+      #{fullName,jdbcType=VARCHAR}, #{isRealname,jdbcType=TINYINT}, #{gender,jdbcType=VARCHAR}, 
+      #{age,jdbcType=INTEGER}, #{province,jdbcType=VARCHAR}, #{isContactRelativeOverdue,jdbcType=TINYINT}, 
+      #{contactRelativeContactCount,jdbcType=INTEGER}, #{isContactFriendOverdue,jdbcType=TINYINT}, 
+      #{contactFriendContactCount,jdbcType=INTEGER}, #{contactSensitiveCount,jdbcType=INTEGER}, 
+      #{isIdcardBlack,jdbcType=TINYINT}, #{loanCount,jdbcType=INTEGER}, #{idcardOverdueCount,jdbcType=INTEGER}, 
+      #{livingScore,jdbcType=VARCHAR}, #{faceComparisonSimilarity,jdbcType=VARCHAR}, 
+      #{isOcr,jdbcType=TINYINT}, #{idcardRecentOverdueDays,jdbcType=INTEGER}, #{idcardHistoryOverdueDays,jdbcType=INTEGER}, 
+      #{idcardAboutContactCount180Days,jdbcType=INTEGER}, #{bankAccountAboutIdcardCount180Days,jdbcType=INTEGER}, 
+      #{phoneAboutEmergencyCount,jdbcType=INTEGER}, #{contactValidCount,jdbcType=INTEGER}, 
+      #{contactAboutOverdueCount,jdbcType=INTEGER}, #{contactAboutBadOverdueCount,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zml.demo.producer.dao.model.OExtfee">
+    insert into o_extfee
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="extfeeId != null">
+        extfee_id,
+      </if>
+      <if test="extfeePayId != null">
+        extfee_pay_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="loanModel != null">
+        loan_model,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="creditScore != null">
+        credit_score,
+      </if>
+      <if test="registerTime != null">
+        register_time,
+      </if>
+      <if test="fullName != null">
+        full_name,
+      </if>
+      <if test="isRealname != null">
+        is_realname,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="age != null">
+        age,
+      </if>
+      <if test="province != null">
+        province,
+      </if>
+      <if test="isContactRelativeOverdue != null">
+        is_contact_relative_overdue,
+      </if>
+      <if test="contactRelativeContactCount != null">
+        contact_relative_contact_count,
+      </if>
+      <if test="isContactFriendOverdue != null">
+        is_contact_friend_overdue,
+      </if>
+      <if test="contactFriendContactCount != null">
+        contact_friend_contact_count,
+      </if>
+      <if test="contactSensitiveCount != null">
+        contact_sensitive_count,
+      </if>
+      <if test="isIdcardBlack != null">
+        is_idcard_black,
+      </if>
+      <if test="loanCount != null">
+        loan_count,
+      </if>
+      <if test="idcardOverdueCount != null">
+        idcard_overdue_count,
+      </if>
+      <if test="livingScore != null">
+        living_score,
+      </if>
+      <if test="faceComparisonSimilarity != null">
+        face_comparison_similarity,
+      </if>
+      <if test="isOcr != null">
+        is_ocr,
+      </if>
+      <if test="idcardRecentOverdueDays != null">
+        idcard_recent_overdue_days,
+      </if>
+      <if test="idcardHistoryOverdueDays != null">
+        idcard_history_overdue_days,
+      </if>
+      <if test="idcardAboutContactCount180Days != null">
+        idcard_about_contact_count_180_days,
+      </if>
+      <if test="bankAccountAboutIdcardCount180Days != null">
+        bank_account_about_idcard_count_180_days,
+      </if>
+      <if test="phoneAboutEmergencyCount != null">
+        phone_about_emergency_count,
+      </if>
+      <if test="contactValidCount != null">
+        contact_valid_count,
+      </if>
+      <if test="contactAboutOverdueCount != null">
+        contact_about_overdue_count,
+      </if>
+      <if test="contactAboutBadOverdueCount != null">
+        contact_about_bad_overdue_count,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="extfeeId != null">
+        #{extfeeId,jdbcType=VARCHAR},
+      </if>
+      <if test="extfeePayId != null">
+        #{extfeePayId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="loanModel != null">
+        #{loanModel,jdbcType=TINYINT},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="creditScore != null">
+        #{creditScore,jdbcType=VARCHAR},
+      </if>
+      <if test="registerTime != null">
+        #{registerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fullName != null">
+        #{fullName,jdbcType=VARCHAR},
+      </if>
+      <if test="isRealname != null">
+        #{isRealname,jdbcType=TINYINT},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="province != null">
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="isContactRelativeOverdue != null">
+        #{isContactRelativeOverdue,jdbcType=TINYINT},
+      </if>
+      <if test="contactRelativeContactCount != null">
+        #{contactRelativeContactCount,jdbcType=INTEGER},
+      </if>
+      <if test="isContactFriendOverdue != null">
+        #{isContactFriendOverdue,jdbcType=TINYINT},
+      </if>
+      <if test="contactFriendContactCount != null">
+        #{contactFriendContactCount,jdbcType=INTEGER},
+      </if>
+      <if test="contactSensitiveCount != null">
+        #{contactSensitiveCount,jdbcType=INTEGER},
+      </if>
+      <if test="isIdcardBlack != null">
+        #{isIdcardBlack,jdbcType=TINYINT},
+      </if>
+      <if test="loanCount != null">
+        #{loanCount,jdbcType=INTEGER},
+      </if>
+      <if test="idcardOverdueCount != null">
+        #{idcardOverdueCount,jdbcType=INTEGER},
+      </if>
+      <if test="livingScore != null">
+        #{livingScore,jdbcType=VARCHAR},
+      </if>
+      <if test="faceComparisonSimilarity != null">
+        #{faceComparisonSimilarity,jdbcType=VARCHAR},
+      </if>
+      <if test="isOcr != null">
+        #{isOcr,jdbcType=TINYINT},
+      </if>
+      <if test="idcardRecentOverdueDays != null">
+        #{idcardRecentOverdueDays,jdbcType=INTEGER},
+      </if>
+      <if test="idcardHistoryOverdueDays != null">
+        #{idcardHistoryOverdueDays,jdbcType=INTEGER},
+      </if>
+      <if test="idcardAboutContactCount180Days != null">
+        #{idcardAboutContactCount180Days,jdbcType=INTEGER},
+      </if>
+      <if test="bankAccountAboutIdcardCount180Days != null">
+        #{bankAccountAboutIdcardCount180Days,jdbcType=INTEGER},
+      </if>
+      <if test="phoneAboutEmergencyCount != null">
+        #{phoneAboutEmergencyCount,jdbcType=INTEGER},
+      </if>
+      <if test="contactValidCount != null">
+        #{contactValidCount,jdbcType=INTEGER},
+      </if>
+      <if test="contactAboutOverdueCount != null">
+        #{contactAboutOverdueCount,jdbcType=INTEGER},
+      </if>
+      <if test="contactAboutBadOverdueCount != null">
+        #{contactAboutBadOverdueCount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zml.demo.producer.dao.model.OExtfeeExample" resultType="java.lang.Long">
+    select count(*) from o_extfee
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update o_extfee
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.extfeeId != null">
+        extfee_id = #{record.extfeeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.extfeePayId != null">
+        extfee_pay_id = #{record.extfeePayId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productId != null">
+        product_id = #{record.productId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanModel != null">
+        loan_model = #{record.loanModel,jdbcType=TINYINT},
+      </if>
+      <if test="record.mobile != null">
+        mobile = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creditScore != null">
+        credit_score = #{record.creditScore,jdbcType=VARCHAR},
+      </if>
+      <if test="record.registerTime != null">
+        register_time = #{record.registerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fullName != null">
+        full_name = #{record.fullName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isRealname != null">
+        is_realname = #{record.isRealname,jdbcType=TINYINT},
+      </if>
+      <if test="record.gender != null">
+        gender = #{record.gender,jdbcType=VARCHAR},
+      </if>
+      <if test="record.age != null">
+        age = #{record.age,jdbcType=INTEGER},
+      </if>
+      <if test="record.province != null">
+        province = #{record.province,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isContactRelativeOverdue != null">
+        is_contact_relative_overdue = #{record.isContactRelativeOverdue,jdbcType=TINYINT},
+      </if>
+      <if test="record.contactRelativeContactCount != null">
+        contact_relative_contact_count = #{record.contactRelativeContactCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.isContactFriendOverdue != null">
+        is_contact_friend_overdue = #{record.isContactFriendOverdue,jdbcType=TINYINT},
+      </if>
+      <if test="record.contactFriendContactCount != null">
+        contact_friend_contact_count = #{record.contactFriendContactCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.contactSensitiveCount != null">
+        contact_sensitive_count = #{record.contactSensitiveCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.isIdcardBlack != null">
+        is_idcard_black = #{record.isIdcardBlack,jdbcType=TINYINT},
+      </if>
+      <if test="record.loanCount != null">
+        loan_count = #{record.loanCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.idcardOverdueCount != null">
+        idcard_overdue_count = #{record.idcardOverdueCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.livingScore != null">
+        living_score = #{record.livingScore,jdbcType=VARCHAR},
+      </if>
+      <if test="record.faceComparisonSimilarity != null">
+        face_comparison_similarity = #{record.faceComparisonSimilarity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isOcr != null">
+        is_ocr = #{record.isOcr,jdbcType=TINYINT},
+      </if>
+      <if test="record.idcardRecentOverdueDays != null">
+        idcard_recent_overdue_days = #{record.idcardRecentOverdueDays,jdbcType=INTEGER},
+      </if>
+      <if test="record.idcardHistoryOverdueDays != null">
+        idcard_history_overdue_days = #{record.idcardHistoryOverdueDays,jdbcType=INTEGER},
+      </if>
+      <if test="record.idcardAboutContactCount180Days != null">
+        idcard_about_contact_count_180_days = #{record.idcardAboutContactCount180Days,jdbcType=INTEGER},
+      </if>
+      <if test="record.bankAccountAboutIdcardCount180Days != null">
+        bank_account_about_idcard_count_180_days = #{record.bankAccountAboutIdcardCount180Days,jdbcType=INTEGER},
+      </if>
+      <if test="record.phoneAboutEmergencyCount != null">
+        phone_about_emergency_count = #{record.phoneAboutEmergencyCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.contactValidCount != null">
+        contact_valid_count = #{record.contactValidCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.contactAboutOverdueCount != null">
+        contact_about_overdue_count = #{record.contactAboutOverdueCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.contactAboutBadOverdueCount != null">
+        contact_about_bad_overdue_count = #{record.contactAboutBadOverdueCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update o_extfee
+    set id = #{record.id,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      extfee_id = #{record.extfeeId,jdbcType=VARCHAR},
+      extfee_pay_id = #{record.extfeePayId,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      product_id = #{record.productId,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      loan_model = #{record.loanModel,jdbcType=TINYINT},
+      mobile = #{record.mobile,jdbcType=VARCHAR},
+      credit_score = #{record.creditScore,jdbcType=VARCHAR},
+      register_time = #{record.registerTime,jdbcType=TIMESTAMP},
+      full_name = #{record.fullName,jdbcType=VARCHAR},
+      is_realname = #{record.isRealname,jdbcType=TINYINT},
+      gender = #{record.gender,jdbcType=VARCHAR},
+      age = #{record.age,jdbcType=INTEGER},
+      province = #{record.province,jdbcType=VARCHAR},
+      is_contact_relative_overdue = #{record.isContactRelativeOverdue,jdbcType=TINYINT},
+      contact_relative_contact_count = #{record.contactRelativeContactCount,jdbcType=INTEGER},
+      is_contact_friend_overdue = #{record.isContactFriendOverdue,jdbcType=TINYINT},
+      contact_friend_contact_count = #{record.contactFriendContactCount,jdbcType=INTEGER},
+      contact_sensitive_count = #{record.contactSensitiveCount,jdbcType=INTEGER},
+      is_idcard_black = #{record.isIdcardBlack,jdbcType=TINYINT},
+      loan_count = #{record.loanCount,jdbcType=INTEGER},
+      idcard_overdue_count = #{record.idcardOverdueCount,jdbcType=INTEGER},
+      living_score = #{record.livingScore,jdbcType=VARCHAR},
+      face_comparison_similarity = #{record.faceComparisonSimilarity,jdbcType=VARCHAR},
+      is_ocr = #{record.isOcr,jdbcType=TINYINT},
+      idcard_recent_overdue_days = #{record.idcardRecentOverdueDays,jdbcType=INTEGER},
+      idcard_history_overdue_days = #{record.idcardHistoryOverdueDays,jdbcType=INTEGER},
+      idcard_about_contact_count_180_days = #{record.idcardAboutContactCount180Days,jdbcType=INTEGER},
+      bank_account_about_idcard_count_180_days = #{record.bankAccountAboutIdcardCount180Days,jdbcType=INTEGER},
+      phone_about_emergency_count = #{record.phoneAboutEmergencyCount,jdbcType=INTEGER},
+      contact_valid_count = #{record.contactValidCount,jdbcType=INTEGER},
+      contact_about_overdue_count = #{record.contactAboutOverdueCount,jdbcType=INTEGER},
+      contact_about_bad_overdue_count = #{record.contactAboutBadOverdueCount,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zml.demo.producer.dao.model.OExtfee">
+    update o_extfee
+    <set>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="extfeeId != null">
+        extfee_id = #{extfeeId,jdbcType=VARCHAR},
+      </if>
+      <if test="extfeePayId != null">
+        extfee_pay_id = #{extfeePayId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        product_id = #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="loanModel != null">
+        loan_model = #{loanModel,jdbcType=TINYINT},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="creditScore != null">
+        credit_score = #{creditScore,jdbcType=VARCHAR},
+      </if>
+      <if test="registerTime != null">
+        register_time = #{registerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fullName != null">
+        full_name = #{fullName,jdbcType=VARCHAR},
+      </if>
+      <if test="isRealname != null">
+        is_realname = #{isRealname,jdbcType=TINYINT},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="province != null">
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="isContactRelativeOverdue != null">
+        is_contact_relative_overdue = #{isContactRelativeOverdue,jdbcType=TINYINT},
+      </if>
+      <if test="contactRelativeContactCount != null">
+        contact_relative_contact_count = #{contactRelativeContactCount,jdbcType=INTEGER},
+      </if>
+      <if test="isContactFriendOverdue != null">
+        is_contact_friend_overdue = #{isContactFriendOverdue,jdbcType=TINYINT},
+      </if>
+      <if test="contactFriendContactCount != null">
+        contact_friend_contact_count = #{contactFriendContactCount,jdbcType=INTEGER},
+      </if>
+      <if test="contactSensitiveCount != null">
+        contact_sensitive_count = #{contactSensitiveCount,jdbcType=INTEGER},
+      </if>
+      <if test="isIdcardBlack != null">
+        is_idcard_black = #{isIdcardBlack,jdbcType=TINYINT},
+      </if>
+      <if test="loanCount != null">
+        loan_count = #{loanCount,jdbcType=INTEGER},
+      </if>
+      <if test="idcardOverdueCount != null">
+        idcard_overdue_count = #{idcardOverdueCount,jdbcType=INTEGER},
+      </if>
+      <if test="livingScore != null">
+        living_score = #{livingScore,jdbcType=VARCHAR},
+      </if>
+      <if test="faceComparisonSimilarity != null">
+        face_comparison_similarity = #{faceComparisonSimilarity,jdbcType=VARCHAR},
+      </if>
+      <if test="isOcr != null">
+        is_ocr = #{isOcr,jdbcType=TINYINT},
+      </if>
+      <if test="idcardRecentOverdueDays != null">
+        idcard_recent_overdue_days = #{idcardRecentOverdueDays,jdbcType=INTEGER},
+      </if>
+      <if test="idcardHistoryOverdueDays != null">
+        idcard_history_overdue_days = #{idcardHistoryOverdueDays,jdbcType=INTEGER},
+      </if>
+      <if test="idcardAboutContactCount180Days != null">
+        idcard_about_contact_count_180_days = #{idcardAboutContactCount180Days,jdbcType=INTEGER},
+      </if>
+      <if test="bankAccountAboutIdcardCount180Days != null">
+        bank_account_about_idcard_count_180_days = #{bankAccountAboutIdcardCount180Days,jdbcType=INTEGER},
+      </if>
+      <if test="phoneAboutEmergencyCount != null">
+        phone_about_emergency_count = #{phoneAboutEmergencyCount,jdbcType=INTEGER},
+      </if>
+      <if test="contactValidCount != null">
+        contact_valid_count = #{contactValidCount,jdbcType=INTEGER},
+      </if>
+      <if test="contactAboutOverdueCount != null">
+        contact_about_overdue_count = #{contactAboutOverdueCount,jdbcType=INTEGER},
+      </if>
+      <if test="contactAboutBadOverdueCount != null">
+        contact_about_bad_overdue_count = #{contactAboutBadOverdueCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zml.demo.producer.dao.model.OExtfee">
+    update o_extfee
+    set create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      extfee_id = #{extfeeId,jdbcType=VARCHAR},
+      extfee_pay_id = #{extfeePayId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      product_id = #{productId,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      loan_model = #{loanModel,jdbcType=TINYINT},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      credit_score = #{creditScore,jdbcType=VARCHAR},
+      register_time = #{registerTime,jdbcType=TIMESTAMP},
+      full_name = #{fullName,jdbcType=VARCHAR},
+      is_realname = #{isRealname,jdbcType=TINYINT},
+      gender = #{gender,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      province = #{province,jdbcType=VARCHAR},
+      is_contact_relative_overdue = #{isContactRelativeOverdue,jdbcType=TINYINT},
+      contact_relative_contact_count = #{contactRelativeContactCount,jdbcType=INTEGER},
+      is_contact_friend_overdue = #{isContactFriendOverdue,jdbcType=TINYINT},
+      contact_friend_contact_count = #{contactFriendContactCount,jdbcType=INTEGER},
+      contact_sensitive_count = #{contactSensitiveCount,jdbcType=INTEGER},
+      is_idcard_black = #{isIdcardBlack,jdbcType=TINYINT},
+      loan_count = #{loanCount,jdbcType=INTEGER},
+      idcard_overdue_count = #{idcardOverdueCount,jdbcType=INTEGER},
+      living_score = #{livingScore,jdbcType=VARCHAR},
+      face_comparison_similarity = #{faceComparisonSimilarity,jdbcType=VARCHAR},
+      is_ocr = #{isOcr,jdbcType=TINYINT},
+      idcard_recent_overdue_days = #{idcardRecentOverdueDays,jdbcType=INTEGER},
+      idcard_history_overdue_days = #{idcardHistoryOverdueDays,jdbcType=INTEGER},
+      idcard_about_contact_count_180_days = #{idcardAboutContactCount180Days,jdbcType=INTEGER},
+      bank_account_about_idcard_count_180_days = #{bankAccountAboutIdcardCount180Days,jdbcType=INTEGER},
+      phone_about_emergency_count = #{phoneAboutEmergencyCount,jdbcType=INTEGER},
+      contact_valid_count = #{contactValidCount,jdbcType=INTEGER},
+      contact_about_overdue_count = #{contactAboutOverdueCount,jdbcType=INTEGER},
+      contact_about_bad_overdue_count = #{contactAboutBadOverdueCount,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

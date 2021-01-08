@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+
+    <!-- 配置文件 -->
+    
+    <context id="MysqlContext" targetRuntime="MyBatis3" defaultModelType="flat">
+
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <!-- 由于beginningDelimiter和endingDelimiter的默认值为双引号(")，在Mysql中不能这么写，所以还要将这两个默认值改为`  -->
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+
+        <!-- 为生成的Java模型创建一个toString方法 -->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"></plugin>
+
+        <!-- 为生成的Java模型类添加序列化接口，并生成serialVersionUID字段 -->
+        <plugin type="com.lmhd.common.codegenerator.SerializablePlugin">
+            <property name="suppressJavaInterface" value="false"/>
+        </plugin>
+
+
+        <!-- 生成一个新的selectByExample方法，这个方法可以接收offset和limit参数，主要用来实现分页，只支持mysql(已使用pagehelper代替) -->
+        <!--<plugin type="com.lmhd.common.plugin.PaginationPlugin"></plugin>-->
+
+        <!-- 生成在XML中的<cache>元素 -->
+
+        <!-- Java模型生成equals和hashcode方法 -->
+        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"></plugin>
+
+        <!-- 生成的代码去掉注释 -->
+        <commentGenerator type="com.lmhd.common.codegenerator.CommentGenerator">
+            <property name="suppressAllComments" value="true"/>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+
+        <!-- 数据库连接 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://192.168.1.237:3306/loan-order"
+                        userId="root"
+                        password="Sowhat?"/>
+
+        <javaTypeResolver>
+            <!-- This property is used to specify whether MyBatis Generator should force the use of JSR-310 data types for DATE, TIME,
+            and TIMESTAMP fields, rather than using java.util.Date -->
+            <property name="useJSR310Types" value="true"/>
+        </javaTypeResolver>
+
+        <!-- model生成 -->
+        <javaModelGenerator targetPackage="com.zml.demo.producer.dao.model" targetProject="/D:/projects/github_projects/springboot-dubbo-demo/producer/producer-dao/src/main/java"/>
+
+        <!-- MapperXML生成 -->
+        <sqlMapGenerator targetPackage="sqlmapper" targetProject="/D:/projects/github_projects/springboot-dubbo-demo/producer/producer-dao/src/main/resources"/>
+
+        <!-- Mapper接口生成 -->
+        <javaClientGenerator targetPackage="com.zml.demo.producer.dao.mapper" targetProject="/D:/projects/github_projects/springboot-dubbo-demo/producer/producer-dao/src/main/java" type="XMLMAPPER"/>
+
+
+        
+        <!-- 需要映射的表 -->
+                <table tableName="o_bank_flow" domainObjectName="OBankFlow"></table>
+
+
+                <table tableName="o_bill" domainObjectName="OBill"></table>
+
+
+                <table tableName="o_call_recover_records" domainObjectName="OCallRecoverRecords"></table>
+
+
+                <table tableName="o_check" domainObjectName="OCheck"></table>
+
+
+                <table tableName="o_check_allot" domainObjectName="OCheckAllot"></table>
+
+
+                <table tableName="o_contact_call_records" domainObjectName="OContactCallRecords"></table>
+
+
+                <table tableName="o_delay" domainObjectName="ODelay"></table>
+
+
+                <table tableName="o_delay_log" domainObjectName="ODelayLog"></table>
+
+
+                <table tableName="o_extfee" domainObjectName="OExtfee"></table>
+
+
+                <table tableName="o_extfee_pay" domainObjectName="OExtfeePay"></table>
+
+
+                <table tableName="o_lend" domainObjectName="OLend"></table>
+
+
+                <table tableName="o_lend_app_log" domainObjectName="OLendAppLog"></table>
+
+
+                <table tableName="o_lend_detail" domainObjectName="OLendDetail"></table>
+
+
+                <table tableName="o_lend_log" domainObjectName="OLendLog"></table>
+
+
+                <table tableName="o_page_stay" domainObjectName="OPageStay"></table>
+
+
+                <table tableName="o_pay" domainObjectName="OPay"></table>
+
+
+                <table tableName="o_repay" domainObjectName="ORepay"></table>
+
+
+                <table tableName="o_repay_review_log" domainObjectName="ORepayReviewLog"></table>
+
+
+                <table tableName="o_review" domainObjectName="OReview"></table>
+
+
+                <table tableName="o_review_allot" domainObjectName="OReviewAllot"></table>
+
+
+                <table tableName="o_review_log" domainObjectName="OReviewLog"></table>
+
+
+                <table tableName="o_supplement_info" domainObjectName="OSupplementInfo"></table>
+
+
+                <table tableName="o_supplement_item" domainObjectName="OSupplementItem"></table>
+
+
+                <table tableName="o_urge" domainObjectName="OUrge"></table>
+
+
+                <table tableName="o_urge_allot" domainObjectName="OUrgeAllot"></table>
+
+
+                <table tableName="o_urge_label" domainObjectName="OUrgeLabel"></table>
+
+
+                <table tableName="o_urge_record" domainObjectName="OUrgeRecord"></table>
+
+
+                <table tableName="o_urge_report" domainObjectName="OUrgeReport"></table>
+
+
+                <table tableName="o_urge_stage" domainObjectName="OUrgeStage"></table>
+
+
+                <table tableName="o_urge_transform_log" domainObjectName="OUrgeTransformLog"></table>
+
+
+                <table tableName="o_withdraw" domainObjectName="OWithdraw"></table>
+
+
+                <table tableName="s_financial" domainObjectName="SFinancial"></table>
+
+
+                <table tableName="s_order" domainObjectName="SOrder"></table>
+
+
+    </context>
+</generatorConfiguration>

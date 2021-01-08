@@ -1,0 +1,655 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zml.demo.producer.dao.mapper.OPayMapper">
+  <resultMap id="BaseResultMap" type="com.zml.demo.producer.dao.model.OPay">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="pay_id" jdbcType="VARCHAR" property="payId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="biz_order_id" jdbcType="VARCHAR" property="bizOrderId" />
+    <result column="third_order_id" jdbcType="VARCHAR" property="thirdOrderId" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="should_return_date" jdbcType="DATE" property="shouldReturnDate" />
+    <result column="pay_proof_url" jdbcType="VARCHAR" property="payProofUrl" />
+    <result column="biz_type" jdbcType="TINYINT" property="bizType" />
+    <result column="payer" jdbcType="VARCHAR" property="payer" />
+    <result column="payee" jdbcType="VARCHAR" property="payee" />
+    <result column="bank_id" jdbcType="INTEGER" property="bankId" />
+    <result column="bank_name" jdbcType="VARCHAR" property="bankName" />
+    <result column="bank_branch" jdbcType="VARCHAR" property="bankBranch" />
+    <result column="account_no" jdbcType="VARCHAR" property="accountNo" />
+    <result column="bank_card_first_name_th" jdbcType="VARCHAR" property="bankCardFirstNameTh" />
+    <result column="bank_card_last_name_th" jdbcType="VARCHAR" property="bankCardLastNameTh" />
+    <result column="bank_card_first_name_en" jdbcType="VARCHAR" property="bankCardFirstNameEn" />
+    <result column="bank_card_last_name_en" jdbcType="VARCHAR" property="bankCardLastNameEn" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="pay_time" jdbcType="TIMESTAMP" property="payTime" />
+    <result column="user_pay_time" jdbcType="TIMESTAMP" property="userPayTime" />
+    <result column="pay_amount" jdbcType="DECIMAL" property="payAmount" />
+    <result column="apply_time" jdbcType="TIMESTAMP" property="applyTime" />
+    <result column="operator" jdbcType="VARCHAR" property="operator" />
+    <result column="withdraw_time" jdbcType="TIMESTAMP" property="withdrawTime" />
+    <result column="company_bank_name" jdbcType="VARCHAR" property="companyBankName" />
+    <result column="company_account_no" jdbcType="VARCHAR" property="companyAccountNo" />
+    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
+    <result column="company_bank_branch" jdbcType="VARCHAR" property="companyBankBranch" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, create_time, update_time, pay_id, user_id, order_id, biz_order_id, third_order_id, 
+    mobile, should_return_date, pay_proof_url, biz_type, payer, payee, bank_id, bank_name, 
+    bank_branch, account_no, bank_card_first_name_th, bank_card_last_name_th, bank_card_first_name_en, 
+    bank_card_last_name_en, status, pay_time, user_pay_time, pay_amount, apply_time, 
+    operator, withdraw_time, company_bank_name, company_account_no, company_name, company_bank_branch
+  </sql>
+  <select id="selectByExample" parameterType="com.zml.demo.producer.dao.model.OPayExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from o_pay
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from o_pay
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from o_pay
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zml.demo.producer.dao.model.OPayExample">
+    delete from o_pay
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zml.demo.producer.dao.model.OPay">
+    insert into o_pay (id, create_time, update_time, 
+      pay_id, user_id, order_id, 
+      biz_order_id, third_order_id, mobile, 
+      should_return_date, pay_proof_url, biz_type, 
+      payer, payee, bank_id, 
+      bank_name, bank_branch, account_no, 
+      bank_card_first_name_th, bank_card_last_name_th, 
+      bank_card_first_name_en, bank_card_last_name_en, 
+      status, pay_time, user_pay_time, 
+      pay_amount, apply_time, operator, 
+      withdraw_time, company_bank_name, company_account_no, 
+      company_name, company_bank_branch)
+    values (#{id,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{payId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, 
+      #{bizOrderId,jdbcType=VARCHAR}, #{thirdOrderId,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{shouldReturnDate,jdbcType=DATE}, #{payProofUrl,jdbcType=VARCHAR}, #{bizType,jdbcType=TINYINT}, 
+      #{payer,jdbcType=VARCHAR}, #{payee,jdbcType=VARCHAR}, #{bankId,jdbcType=INTEGER}, 
+      #{bankName,jdbcType=VARCHAR}, #{bankBranch,jdbcType=VARCHAR}, #{accountNo,jdbcType=VARCHAR}, 
+      #{bankCardFirstNameTh,jdbcType=VARCHAR}, #{bankCardLastNameTh,jdbcType=VARCHAR}, 
+      #{bankCardFirstNameEn,jdbcType=VARCHAR}, #{bankCardLastNameEn,jdbcType=VARCHAR}, 
+      #{status,jdbcType=TINYINT}, #{payTime,jdbcType=TIMESTAMP}, #{userPayTime,jdbcType=TIMESTAMP}, 
+      #{payAmount,jdbcType=DECIMAL}, #{applyTime,jdbcType=TIMESTAMP}, #{operator,jdbcType=VARCHAR}, 
+      #{withdrawTime,jdbcType=TIMESTAMP}, #{companyBankName,jdbcType=VARCHAR}, #{companyAccountNo,jdbcType=VARCHAR}, 
+      #{companyName,jdbcType=VARCHAR}, #{companyBankBranch,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zml.demo.producer.dao.model.OPay">
+    insert into o_pay
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="payId != null">
+        pay_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="bizOrderId != null">
+        biz_order_id,
+      </if>
+      <if test="thirdOrderId != null">
+        third_order_id,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="shouldReturnDate != null">
+        should_return_date,
+      </if>
+      <if test="payProofUrl != null">
+        pay_proof_url,
+      </if>
+      <if test="bizType != null">
+        biz_type,
+      </if>
+      <if test="payer != null">
+        payer,
+      </if>
+      <if test="payee != null">
+        payee,
+      </if>
+      <if test="bankId != null">
+        bank_id,
+      </if>
+      <if test="bankName != null">
+        bank_name,
+      </if>
+      <if test="bankBranch != null">
+        bank_branch,
+      </if>
+      <if test="accountNo != null">
+        account_no,
+      </if>
+      <if test="bankCardFirstNameTh != null">
+        bank_card_first_name_th,
+      </if>
+      <if test="bankCardLastNameTh != null">
+        bank_card_last_name_th,
+      </if>
+      <if test="bankCardFirstNameEn != null">
+        bank_card_first_name_en,
+      </if>
+      <if test="bankCardLastNameEn != null">
+        bank_card_last_name_en,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="payTime != null">
+        pay_time,
+      </if>
+      <if test="userPayTime != null">
+        user_pay_time,
+      </if>
+      <if test="payAmount != null">
+        pay_amount,
+      </if>
+      <if test="applyTime != null">
+        apply_time,
+      </if>
+      <if test="operator != null">
+        operator,
+      </if>
+      <if test="withdrawTime != null">
+        withdraw_time,
+      </if>
+      <if test="companyBankName != null">
+        company_bank_name,
+      </if>
+      <if test="companyAccountNo != null">
+        company_account_no,
+      </if>
+      <if test="companyName != null">
+        company_name,
+      </if>
+      <if test="companyBankBranch != null">
+        company_bank_branch,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payId != null">
+        #{payId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="bizOrderId != null">
+        #{bizOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdOrderId != null">
+        #{thirdOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="shouldReturnDate != null">
+        #{shouldReturnDate,jdbcType=DATE},
+      </if>
+      <if test="payProofUrl != null">
+        #{payProofUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="bizType != null">
+        #{bizType,jdbcType=TINYINT},
+      </if>
+      <if test="payer != null">
+        #{payer,jdbcType=VARCHAR},
+      </if>
+      <if test="payee != null">
+        #{payee,jdbcType=VARCHAR},
+      </if>
+      <if test="bankId != null">
+        #{bankId,jdbcType=INTEGER},
+      </if>
+      <if test="bankName != null">
+        #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankBranch != null">
+        #{bankBranch,jdbcType=VARCHAR},
+      </if>
+      <if test="accountNo != null">
+        #{accountNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCardFirstNameTh != null">
+        #{bankCardFirstNameTh,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCardLastNameTh != null">
+        #{bankCardLastNameTh,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCardFirstNameEn != null">
+        #{bankCardFirstNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCardLastNameEn != null">
+        #{bankCardLastNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="payTime != null">
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userPayTime != null">
+        #{userPayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payAmount != null">
+        #{payAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="applyTime != null">
+        #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null">
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="withdrawTime != null">
+        #{withdrawTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="companyBankName != null">
+        #{companyBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyAccountNo != null">
+        #{companyAccountNo,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null">
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyBankBranch != null">
+        #{companyBankBranch,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zml.demo.producer.dao.model.OPayExample" resultType="java.lang.Long">
+    select count(*) from o_pay
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update o_pay
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.payId != null">
+        pay_id = #{record.payId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderId != null">
+        order_id = #{record.orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bizOrderId != null">
+        biz_order_id = #{record.bizOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.thirdOrderId != null">
+        third_order_id = #{record.thirdOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobile != null">
+        mobile = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shouldReturnDate != null">
+        should_return_date = #{record.shouldReturnDate,jdbcType=DATE},
+      </if>
+      <if test="record.payProofUrl != null">
+        pay_proof_url = #{record.payProofUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bizType != null">
+        biz_type = #{record.bizType,jdbcType=TINYINT},
+      </if>
+      <if test="record.payer != null">
+        payer = #{record.payer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payee != null">
+        payee = #{record.payee,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankId != null">
+        bank_id = #{record.bankId,jdbcType=INTEGER},
+      </if>
+      <if test="record.bankName != null">
+        bank_name = #{record.bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankBranch != null">
+        bank_branch = #{record.bankBranch,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountNo != null">
+        account_no = #{record.accountNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankCardFirstNameTh != null">
+        bank_card_first_name_th = #{record.bankCardFirstNameTh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankCardLastNameTh != null">
+        bank_card_last_name_th = #{record.bankCardLastNameTh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankCardFirstNameEn != null">
+        bank_card_first_name_en = #{record.bankCardFirstNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankCardLastNameEn != null">
+        bank_card_last_name_en = #{record.bankCardLastNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=TINYINT},
+      </if>
+      <if test="record.payTime != null">
+        pay_time = #{record.payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userPayTime != null">
+        user_pay_time = #{record.userPayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.payAmount != null">
+        pay_amount = #{record.payAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.applyTime != null">
+        apply_time = #{record.applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.operator != null">
+        operator = #{record.operator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.withdrawTime != null">
+        withdraw_time = #{record.withdrawTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.companyBankName != null">
+        company_bank_name = #{record.companyBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyAccountNo != null">
+        company_account_no = #{record.companyAccountNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyName != null">
+        company_name = #{record.companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyBankBranch != null">
+        company_bank_branch = #{record.companyBankBranch,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update o_pay
+    set id = #{record.id,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      pay_id = #{record.payId,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      order_id = #{record.orderId,jdbcType=VARCHAR},
+      biz_order_id = #{record.bizOrderId,jdbcType=VARCHAR},
+      third_order_id = #{record.thirdOrderId,jdbcType=VARCHAR},
+      mobile = #{record.mobile,jdbcType=VARCHAR},
+      should_return_date = #{record.shouldReturnDate,jdbcType=DATE},
+      pay_proof_url = #{record.payProofUrl,jdbcType=VARCHAR},
+      biz_type = #{record.bizType,jdbcType=TINYINT},
+      payer = #{record.payer,jdbcType=VARCHAR},
+      payee = #{record.payee,jdbcType=VARCHAR},
+      bank_id = #{record.bankId,jdbcType=INTEGER},
+      bank_name = #{record.bankName,jdbcType=VARCHAR},
+      bank_branch = #{record.bankBranch,jdbcType=VARCHAR},
+      account_no = #{record.accountNo,jdbcType=VARCHAR},
+      bank_card_first_name_th = #{record.bankCardFirstNameTh,jdbcType=VARCHAR},
+      bank_card_last_name_th = #{record.bankCardLastNameTh,jdbcType=VARCHAR},
+      bank_card_first_name_en = #{record.bankCardFirstNameEn,jdbcType=VARCHAR},
+      bank_card_last_name_en = #{record.bankCardLastNameEn,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=TINYINT},
+      pay_time = #{record.payTime,jdbcType=TIMESTAMP},
+      user_pay_time = #{record.userPayTime,jdbcType=TIMESTAMP},
+      pay_amount = #{record.payAmount,jdbcType=DECIMAL},
+      apply_time = #{record.applyTime,jdbcType=TIMESTAMP},
+      operator = #{record.operator,jdbcType=VARCHAR},
+      withdraw_time = #{record.withdrawTime,jdbcType=TIMESTAMP},
+      company_bank_name = #{record.companyBankName,jdbcType=VARCHAR},
+      company_account_no = #{record.companyAccountNo,jdbcType=VARCHAR},
+      company_name = #{record.companyName,jdbcType=VARCHAR},
+      company_bank_branch = #{record.companyBankBranch,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zml.demo.producer.dao.model.OPay">
+    update o_pay
+    <set>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payId != null">
+        pay_id = #{payId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="bizOrderId != null">
+        biz_order_id = #{bizOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdOrderId != null">
+        third_order_id = #{thirdOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="shouldReturnDate != null">
+        should_return_date = #{shouldReturnDate,jdbcType=DATE},
+      </if>
+      <if test="payProofUrl != null">
+        pay_proof_url = #{payProofUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="bizType != null">
+        biz_type = #{bizType,jdbcType=TINYINT},
+      </if>
+      <if test="payer != null">
+        payer = #{payer,jdbcType=VARCHAR},
+      </if>
+      <if test="payee != null">
+        payee = #{payee,jdbcType=VARCHAR},
+      </if>
+      <if test="bankId != null">
+        bank_id = #{bankId,jdbcType=INTEGER},
+      </if>
+      <if test="bankName != null">
+        bank_name = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankBranch != null">
+        bank_branch = #{bankBranch,jdbcType=VARCHAR},
+      </if>
+      <if test="accountNo != null">
+        account_no = #{accountNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCardFirstNameTh != null">
+        bank_card_first_name_th = #{bankCardFirstNameTh,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCardLastNameTh != null">
+        bank_card_last_name_th = #{bankCardLastNameTh,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCardFirstNameEn != null">
+        bank_card_first_name_en = #{bankCardFirstNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCardLastNameEn != null">
+        bank_card_last_name_en = #{bankCardLastNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="payTime != null">
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userPayTime != null">
+        user_pay_time = #{userPayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payAmount != null">
+        pay_amount = #{payAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="applyTime != null">
+        apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null">
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="withdrawTime != null">
+        withdraw_time = #{withdrawTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="companyBankName != null">
+        company_bank_name = #{companyBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyAccountNo != null">
+        company_account_no = #{companyAccountNo,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null">
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyBankBranch != null">
+        company_bank_branch = #{companyBankBranch,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zml.demo.producer.dao.model.OPay">
+    update o_pay
+    set create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      pay_id = #{payId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      order_id = #{orderId,jdbcType=VARCHAR},
+      biz_order_id = #{bizOrderId,jdbcType=VARCHAR},
+      third_order_id = #{thirdOrderId,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      should_return_date = #{shouldReturnDate,jdbcType=DATE},
+      pay_proof_url = #{payProofUrl,jdbcType=VARCHAR},
+      biz_type = #{bizType,jdbcType=TINYINT},
+      payer = #{payer,jdbcType=VARCHAR},
+      payee = #{payee,jdbcType=VARCHAR},
+      bank_id = #{bankId,jdbcType=INTEGER},
+      bank_name = #{bankName,jdbcType=VARCHAR},
+      bank_branch = #{bankBranch,jdbcType=VARCHAR},
+      account_no = #{accountNo,jdbcType=VARCHAR},
+      bank_card_first_name_th = #{bankCardFirstNameTh,jdbcType=VARCHAR},
+      bank_card_last_name_th = #{bankCardLastNameTh,jdbcType=VARCHAR},
+      bank_card_first_name_en = #{bankCardFirstNameEn,jdbcType=VARCHAR},
+      bank_card_last_name_en = #{bankCardLastNameEn,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      pay_time = #{payTime,jdbcType=TIMESTAMP},
+      user_pay_time = #{userPayTime,jdbcType=TIMESTAMP},
+      pay_amount = #{payAmount,jdbcType=DECIMAL},
+      apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      operator = #{operator,jdbcType=VARCHAR},
+      withdraw_time = #{withdrawTime,jdbcType=TIMESTAMP},
+      company_bank_name = #{companyBankName,jdbcType=VARCHAR},
+      company_account_no = #{companyAccountNo,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      company_bank_branch = #{companyBankBranch,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

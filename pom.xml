@@ -5,7 +5,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>customer-service</module>
-        <module>producer-service</module>
+        <module>producer</module>
         <module>common-api</module>
         <module>common</module>
     </modules>

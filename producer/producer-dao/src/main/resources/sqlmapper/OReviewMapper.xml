@@ -1,0 +1,594 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zml.demo.producer.dao.mapper.OReviewMapper">
+  <resultMap id="BaseResultMap" type="com.zml.demo.producer.dao.model.OReview">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="first_reviewer" jdbcType="VARCHAR" property="firstReviewer" />
+    <result column="last_reviewer" jdbcType="VARCHAR" property="lastReviewer" />
+    <result column="checker" jdbcType="VARCHAR" property="checker" />
+    <result column="first_review_time" jdbcType="TIMESTAMP" property="firstReviewTime" />
+    <result column="last_review_time" jdbcType="TIMESTAMP" property="lastReviewTime" />
+    <result column="machine_review_time" jdbcType="TIMESTAMP" property="machineReviewTime" />
+    <result column="rear_blacklist_review_time" jdbcType="TIMESTAMP" property="rearBlacklistReviewTime" />
+    <result column="front_blacklist_review_time" jdbcType="TIMESTAMP" property="frontBlacklistReviewTime" />
+    <result column="check_time" jdbcType="TIMESTAMP" property="checkTime" />
+    <result column="machine_review_status" jdbcType="TINYINT" property="machineReviewStatus" />
+    <result column="first_review_status" jdbcType="TINYINT" property="firstReviewStatus" />
+    <result column="last_review_status" jdbcType="TINYINT" property="lastReviewStatus" />
+    <result column="front_blacklist_status" jdbcType="TINYINT" property="frontBlacklistStatus" />
+    <result column="rear_blacklist_status" jdbcType="TINYINT" property="rearBlacklistStatus" />
+    <result column="first_allot_status" jdbcType="BIT" property="firstAllotStatus" />
+    <result column="last_allot_status" jdbcType="BIT" property="lastAllotStatus" />
+    <result column="check_allot_status" jdbcType="BIT" property="checkAllotStatus" />
+    <result column="reject_code" jdbcType="VARCHAR" property="rejectCode" />
+    <result column="pause_code" jdbcType="VARCHAR" property="pauseCode" />
+    <result column="black_level" jdbcType="VARCHAR" property="blackLevel" />
+    <result column="black_type" jdbcType="VARCHAR" property="blackType" />
+    <result column="black_hit_status" jdbcType="BIT" property="blackHitStatus" />
+    <result column="review_remark" jdbcType="VARCHAR" property="reviewRemark" />
+    <result column="pause_remark" jdbcType="VARCHAR" property="pauseRemark" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, create_time, update_time, order_id, user_id, first_reviewer, last_reviewer, checker, 
+    first_review_time, last_review_time, machine_review_time, rear_blacklist_review_time, 
+    front_blacklist_review_time, check_time, machine_review_status, first_review_status, 
+    last_review_status, front_blacklist_status, rear_blacklist_status, first_allot_status, 
+    last_allot_status, check_allot_status, reject_code, pause_code, black_level, black_type, 
+    black_hit_status, review_remark, pause_remark
+  </sql>
+  <select id="selectByExample" parameterType="com.zml.demo.producer.dao.model.OReviewExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from o_review
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from o_review
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from o_review
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zml.demo.producer.dao.model.OReviewExample">
+    delete from o_review
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zml.demo.producer.dao.model.OReview">
+    insert into o_review (id, create_time, update_time, 
+      order_id, user_id, first_reviewer, 
+      last_reviewer, checker, first_review_time, 
+      last_review_time, machine_review_time, 
+      rear_blacklist_review_time, front_blacklist_review_time, 
+      check_time, machine_review_status, first_review_status, 
+      last_review_status, front_blacklist_status, 
+      rear_blacklist_status, first_allot_status, last_allot_status, 
+      check_allot_status, reject_code, pause_code, 
+      black_level, black_type, black_hit_status, 
+      review_remark, pause_remark)
+    values (#{id,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{orderId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{firstReviewer,jdbcType=VARCHAR}, 
+      #{lastReviewer,jdbcType=VARCHAR}, #{checker,jdbcType=VARCHAR}, #{firstReviewTime,jdbcType=TIMESTAMP}, 
+      #{lastReviewTime,jdbcType=TIMESTAMP}, #{machineReviewTime,jdbcType=TIMESTAMP}, 
+      #{rearBlacklistReviewTime,jdbcType=TIMESTAMP}, #{frontBlacklistReviewTime,jdbcType=TIMESTAMP}, 
+      #{checkTime,jdbcType=TIMESTAMP}, #{machineReviewStatus,jdbcType=TINYINT}, #{firstReviewStatus,jdbcType=TINYINT}, 
+      #{lastReviewStatus,jdbcType=TINYINT}, #{frontBlacklistStatus,jdbcType=TINYINT}, 
+      #{rearBlacklistStatus,jdbcType=TINYINT}, #{firstAllotStatus,jdbcType=BIT}, #{lastAllotStatus,jdbcType=BIT}, 
+      #{checkAllotStatus,jdbcType=BIT}, #{rejectCode,jdbcType=VARCHAR}, #{pauseCode,jdbcType=VARCHAR}, 
+      #{blackLevel,jdbcType=VARCHAR}, #{blackType,jdbcType=VARCHAR}, #{blackHitStatus,jdbcType=BIT}, 
+      #{reviewRemark,jdbcType=VARCHAR}, #{pauseRemark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zml.demo.producer.dao.model.OReview">
+    insert into o_review
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="firstReviewer != null">
+        first_reviewer,
+      </if>
+      <if test="lastReviewer != null">
+        last_reviewer,
+      </if>
+      <if test="checker != null">
+        checker,
+      </if>
+      <if test="firstReviewTime != null">
+        first_review_time,
+      </if>
+      <if test="lastReviewTime != null">
+        last_review_time,
+      </if>
+      <if test="machineReviewTime != null">
+        machine_review_time,
+      </if>
+      <if test="rearBlacklistReviewTime != null">
+        rear_blacklist_review_time,
+      </if>
+      <if test="frontBlacklistReviewTime != null">
+        front_blacklist_review_time,
+      </if>
+      <if test="checkTime != null">
+        check_time,
+      </if>
+      <if test="machineReviewStatus != null">
+        machine_review_status,
+      </if>
+      <if test="firstReviewStatus != null">
+        first_review_status,
+      </if>
+      <if test="lastReviewStatus != null">
+        last_review_status,
+      </if>
+      <if test="frontBlacklistStatus != null">
+        front_blacklist_status,
+      </if>
+      <if test="rearBlacklistStatus != null">
+        rear_blacklist_status,
+      </if>
+      <if test="firstAllotStatus != null">
+        first_allot_status,
+      </if>
+      <if test="lastAllotStatus != null">
+        last_allot_status,
+      </if>
+      <if test="checkAllotStatus != null">
+        check_allot_status,
+      </if>
+      <if test="rejectCode != null">
+        reject_code,
+      </if>
+      <if test="pauseCode != null">
+        pause_code,
+      </if>
+      <if test="blackLevel != null">
+        black_level,
+      </if>
+      <if test="blackType != null">
+        black_type,
+      </if>
+      <if test="blackHitStatus != null">
+        black_hit_status,
+      </if>
+      <if test="reviewRemark != null">
+        review_remark,
+      </if>
+      <if test="pauseRemark != null">
+        pause_remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="firstReviewer != null">
+        #{firstReviewer,jdbcType=VARCHAR},
+      </if>
+      <if test="lastReviewer != null">
+        #{lastReviewer,jdbcType=VARCHAR},
+      </if>
+      <if test="checker != null">
+        #{checker,jdbcType=VARCHAR},
+      </if>
+      <if test="firstReviewTime != null">
+        #{firstReviewTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastReviewTime != null">
+        #{lastReviewTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="machineReviewTime != null">
+        #{machineReviewTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rearBlacklistReviewTime != null">
+        #{rearBlacklistReviewTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="frontBlacklistReviewTime != null">
+        #{frontBlacklistReviewTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkTime != null">
+        #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="machineReviewStatus != null">
+        #{machineReviewStatus,jdbcType=TINYINT},
+      </if>
+      <if test="firstReviewStatus != null">
+        #{firstReviewStatus,jdbcType=TINYINT},
+      </if>
+      <if test="lastReviewStatus != null">
+        #{lastReviewStatus,jdbcType=TINYINT},
+      </if>
+      <if test="frontBlacklistStatus != null">
+        #{frontBlacklistStatus,jdbcType=TINYINT},
+      </if>
+      <if test="rearBlacklistStatus != null">
+        #{rearBlacklistStatus,jdbcType=TINYINT},
+      </if>
+      <if test="firstAllotStatus != null">
+        #{firstAllotStatus,jdbcType=BIT},
+      </if>
+      <if test="lastAllotStatus != null">
+        #{lastAllotStatus,jdbcType=BIT},
+      </if>
+      <if test="checkAllotStatus != null">
+        #{checkAllotStatus,jdbcType=BIT},
+      </if>
+      <if test="rejectCode != null">
+        #{rejectCode,jdbcType=VARCHAR},
+      </if>
+      <if test="pauseCode != null">
+        #{pauseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="blackLevel != null">
+        #{blackLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="blackType != null">
+        #{blackType,jdbcType=VARCHAR},
+      </if>
+      <if test="blackHitStatus != null">
+        #{blackHitStatus,jdbcType=BIT},
+      </if>
+      <if test="reviewRemark != null">
+        #{reviewRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="pauseRemark != null">
+        #{pauseRemark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zml.demo.producer.dao.model.OReviewExample" resultType="java.lang.Long">
+    select count(*) from o_review
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update o_review
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.orderId != null">
+        order_id = #{record.orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.firstReviewer != null">
+        first_reviewer = #{record.firstReviewer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastReviewer != null">
+        last_reviewer = #{record.lastReviewer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checker != null">
+        checker = #{record.checker,jdbcType=VARCHAR},
+      </if>
+      <if test="record.firstReviewTime != null">
+        first_review_time = #{record.firstReviewTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastReviewTime != null">
+        last_review_time = #{record.lastReviewTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.machineReviewTime != null">
+        machine_review_time = #{record.machineReviewTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.rearBlacklistReviewTime != null">
+        rear_blacklist_review_time = #{record.rearBlacklistReviewTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.frontBlacklistReviewTime != null">
+        front_blacklist_review_time = #{record.frontBlacklistReviewTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.checkTime != null">
+        check_time = #{record.checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.machineReviewStatus != null">
+        machine_review_status = #{record.machineReviewStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.firstReviewStatus != null">
+        first_review_status = #{record.firstReviewStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.lastReviewStatus != null">
+        last_review_status = #{record.lastReviewStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.frontBlacklistStatus != null">
+        front_blacklist_status = #{record.frontBlacklistStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.rearBlacklistStatus != null">
+        rear_blacklist_status = #{record.rearBlacklistStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.firstAllotStatus != null">
+        first_allot_status = #{record.firstAllotStatus,jdbcType=BIT},
+      </if>
+      <if test="record.lastAllotStatus != null">
+        last_allot_status = #{record.lastAllotStatus,jdbcType=BIT},
+      </if>
+      <if test="record.checkAllotStatus != null">
+        check_allot_status = #{record.checkAllotStatus,jdbcType=BIT},
+      </if>
+      <if test="record.rejectCode != null">
+        reject_code = #{record.rejectCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pauseCode != null">
+        pause_code = #{record.pauseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blackLevel != null">
+        black_level = #{record.blackLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blackType != null">
+        black_type = #{record.blackType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blackHitStatus != null">
+        black_hit_status = #{record.blackHitStatus,jdbcType=BIT},
+      </if>
+      <if test="record.reviewRemark != null">
+        review_remark = #{record.reviewRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pauseRemark != null">
+        pause_remark = #{record.pauseRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update o_review
+    set id = #{record.id,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      order_id = #{record.orderId,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      first_reviewer = #{record.firstReviewer,jdbcType=VARCHAR},
+      last_reviewer = #{record.lastReviewer,jdbcType=VARCHAR},
+      checker = #{record.checker,jdbcType=VARCHAR},
+      first_review_time = #{record.firstReviewTime,jdbcType=TIMESTAMP},
+      last_review_time = #{record.lastReviewTime,jdbcType=TIMESTAMP},
+      machine_review_time = #{record.machineReviewTime,jdbcType=TIMESTAMP},
+      rear_blacklist_review_time = #{record.rearBlacklistReviewTime,jdbcType=TIMESTAMP},
+      front_blacklist_review_time = #{record.frontBlacklistReviewTime,jdbcType=TIMESTAMP},
+      check_time = #{record.checkTime,jdbcType=TIMESTAMP},
+      machine_review_status = #{record.machineReviewStatus,jdbcType=TINYINT},
+      first_review_status = #{record.firstReviewStatus,jdbcType=TINYINT},
+      last_review_status = #{record.lastReviewStatus,jdbcType=TINYINT},
+      front_blacklist_status = #{record.frontBlacklistStatus,jdbcType=TINYINT},
+      rear_blacklist_status = #{record.rearBlacklistStatus,jdbcType=TINYINT},
+      first_allot_status = #{record.firstAllotStatus,jdbcType=BIT},
+      last_allot_status = #{record.lastAllotStatus,jdbcType=BIT},
+      check_allot_status = #{record.checkAllotStatus,jdbcType=BIT},
+      reject_code = #{record.rejectCode,jdbcType=VARCHAR},
+      pause_code = #{record.pauseCode,jdbcType=VARCHAR},
+      black_level = #{record.blackLevel,jdbcType=VARCHAR},
+      black_type = #{record.blackType,jdbcType=VARCHAR},
+      black_hit_status = #{record.blackHitStatus,jdbcType=BIT},
+      review_remark = #{record.reviewRemark,jdbcType=VARCHAR},
+      pause_remark = #{record.pauseRemark,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zml.demo.producer.dao.model.OReview">
+    update o_review
+    <set>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="firstReviewer != null">
+        first_reviewer = #{firstReviewer,jdbcType=VARCHAR},
+      </if>
+      <if test="lastReviewer != null">
+        last_reviewer = #{lastReviewer,jdbcType=VARCHAR},
+      </if>
+      <if test="checker != null">
+        checker = #{checker,jdbcType=VARCHAR},
+      </if>
+      <if test="firstReviewTime != null">
+        first_review_time = #{firstReviewTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastReviewTime != null">
+        last_review_time = #{lastReviewTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="machineReviewTime != null">
+        machine_review_time = #{machineReviewTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rearBlacklistReviewTime != null">
+        rear_blacklist_review_time = #{rearBlacklistReviewTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="frontBlacklistReviewTime != null">
+        front_blacklist_review_time = #{frontBlacklistReviewTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkTime != null">
+        check_time = #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="machineReviewStatus != null">
+        machine_review_status = #{machineReviewStatus,jdbcType=TINYINT},
+      </if>
+      <if test="firstReviewStatus != null">
+        first_review_status = #{firstReviewStatus,jdbcType=TINYINT},
+      </if>
+      <if test="lastReviewStatus != null">
+        last_review_status = #{lastReviewStatus,jdbcType=TINYINT},
+      </if>
+      <if test="frontBlacklistStatus != null">
+        front_blacklist_status = #{frontBlacklistStatus,jdbcType=TINYINT},
+      </if>
+      <if test="rearBlacklistStatus != null">
+        rear_blacklist_status = #{rearBlacklistStatus,jdbcType=TINYINT},
+      </if>
+      <if test="firstAllotStatus != null">
+        first_allot_status = #{firstAllotStatus,jdbcType=BIT},
+      </if>
+      <if test="lastAllotStatus != null">
+        last_allot_status = #{lastAllotStatus,jdbcType=BIT},
+      </if>
+      <if test="checkAllotStatus != null">
+        check_allot_status = #{checkAllotStatus,jdbcType=BIT},
+      </if>
+      <if test="rejectCode != null">
+        reject_code = #{rejectCode,jdbcType=VARCHAR},
+      </if>
+      <if test="pauseCode != null">
+        pause_code = #{pauseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="blackLevel != null">
+        black_level = #{blackLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="blackType != null">
+        black_type = #{blackType,jdbcType=VARCHAR},
+      </if>
+      <if test="blackHitStatus != null">
+        black_hit_status = #{blackHitStatus,jdbcType=BIT},
+      </if>
+      <if test="reviewRemark != null">
+        review_remark = #{reviewRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="pauseRemark != null">
+        pause_remark = #{pauseRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zml.demo.producer.dao.model.OReview">
+    update o_review
+    set create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      order_id = #{orderId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      first_reviewer = #{firstReviewer,jdbcType=VARCHAR},
+      last_reviewer = #{lastReviewer,jdbcType=VARCHAR},
+      checker = #{checker,jdbcType=VARCHAR},
+      first_review_time = #{firstReviewTime,jdbcType=TIMESTAMP},
+      last_review_time = #{lastReviewTime,jdbcType=TIMESTAMP},
+      machine_review_time = #{machineReviewTime,jdbcType=TIMESTAMP},
+      rear_blacklist_review_time = #{rearBlacklistReviewTime,jdbcType=TIMESTAMP},
+      front_blacklist_review_time = #{frontBlacklistReviewTime,jdbcType=TIMESTAMP},
+      check_time = #{checkTime,jdbcType=TIMESTAMP},
+      machine_review_status = #{machineReviewStatus,jdbcType=TINYINT},
+      first_review_status = #{firstReviewStatus,jdbcType=TINYINT},
+      last_review_status = #{lastReviewStatus,jdbcType=TINYINT},
+      front_blacklist_status = #{frontBlacklistStatus,jdbcType=TINYINT},
+      rear_blacklist_status = #{rearBlacklistStatus,jdbcType=TINYINT},
+      first_allot_status = #{firstAllotStatus,jdbcType=BIT},
+      last_allot_status = #{lastAllotStatus,jdbcType=BIT},
+      check_allot_status = #{checkAllotStatus,jdbcType=BIT},
+      reject_code = #{rejectCode,jdbcType=VARCHAR},
+      pause_code = #{pauseCode,jdbcType=VARCHAR},
+      black_level = #{blackLevel,jdbcType=VARCHAR},
+      black_type = #{blackType,jdbcType=VARCHAR},
+      black_hit_status = #{blackHitStatus,jdbcType=BIT},
+      review_remark = #{reviewRemark,jdbcType=VARCHAR},
+      pause_remark = #{pauseRemark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,13 @@
+package com.zml.demo.producer.api.base;
+
+import com.lmhd.common.base.BaseService;
+import com.zml.demo.producer.dao.model.OLendDetail;
+import com.zml.demo.producer.dao.model.OLendDetailExample;
+
+/**
+* OLendDetailService接口
+* Created by LMHD.TEC on 2021/1/8.
+*/
+public interface OLendDetailService extends BaseService<OLendDetail, OLendDetailExample> {
+
+}

@@ -1,0 +1,1211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zml.demo.producer.dao.mapper.OLendMapper">
+  <resultMap id="BaseResultMap" type="com.zml.demo.producer.dao.model.OLend">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="product_id" jdbcType="VARCHAR" property="productId" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="withdraw_status" jdbcType="TINYINT" property="withdrawStatus" />
+    <result column="review_status" jdbcType="TINYINT" property="reviewStatus" />
+    <result column="repay_status" jdbcType="TINYINT" property="repayStatus" />
+    <result column="ext_pay_status" jdbcType="TINYINT" property="extPayStatus" />
+    <result column="pause_status" jdbcType="BIT" property="pauseStatus" />
+    <result column="supplement_status" jdbcType="TINYINT" property="supplementStatus" />
+    <result column="check_status" jdbcType="TINYINT" property="checkStatus" />
+    <result column="bank_review_status" jdbcType="TINYINT" property="bankReviewStatus" />
+    <result column="interest_ratio" jdbcType="DECIMAL" property="interestRatio" />
+    <result column="overdue_ratio" jdbcType="DECIMAL" property="overdueRatio" />
+    <result column="overdue_max_ratio" jdbcType="DECIMAL" property="overdueMaxRatio" />
+    <result column="loan_days" jdbcType="INTEGER" property="loanDays" />
+    <result column="apply_time" jdbcType="TIMESTAMP" property="applyTime" />
+    <result column="withdraw_time" jdbcType="TIMESTAMP" property="withdrawTime" />
+    <result column="should_return_date" jdbcType="DATE" property="shouldReturnDate" />
+    <result column="delay_return_date" jdbcType="DATE" property="delayReturnDate" />
+    <result column="repaid_over_time" jdbcType="TIMESTAMP" property="repaidOverTime" />
+    <result column="first" jdbcType="TINYINT" property="first" />
+    <result column="loan_model" jdbcType="TINYINT" property="loanModel" />
+    <result column="loan_amount" jdbcType="DECIMAL" property="loanAmount" />
+    <result column="ext_fee_amount" jdbcType="DECIMAL" property="extFeeAmount" />
+    <result column="interest_amount" jdbcType="DECIMAL" property="interestAmount" />
+    <result column="in_hand_amount" jdbcType="DECIMAL" property="inHandAmount" />
+    <result column="withdraw_amount" jdbcType="DECIMAL" property="withdrawAmount" />
+    <result column="repaid_amount" jdbcType="DECIMAL" property="repaidAmount" />
+    <result column="reduction_amount" jdbcType="DECIMAL" property="reductionAmount" />
+    <result column="repaid_principal_amount" jdbcType="DECIMAL" property="repaidPrincipalAmount" />
+    <result column="repaid_overdue_amount" jdbcType="DECIMAL" property="repaidOverdueAmount" />
+    <result column="repaid_interest_amount" jdbcType="DECIMAL" property="repaidInterestAmount" />
+    <result column="repaid_extfee_amount" jdbcType="DECIMAL" property="repaidExtfeeAmount" />
+    <result column="repaid_other_amount" jdbcType="DECIMAL" property="repaidOtherAmount" />
+    <result column="bank_card_id" jdbcType="INTEGER" property="bankCardId" />
+    <result column="bank_id" jdbcType="INTEGER" property="bankId" />
+    <result column="pause_time" jdbcType="TIMESTAMP" property="pauseTime" />
+    <result column="review_time" jdbcType="TIMESTAMP" property="reviewTime" />
+    <result column="first_allot_status" jdbcType="BIT" property="firstAllotStatus" />
+    <result column="last_allot_status" jdbcType="BIT" property="lastAllotStatus" />
+    <result column="check_allot_status" jdbcType="BIT" property="checkAllotStatus" />
+    <result column="first_reviewer" jdbcType="VARCHAR" property="firstReviewer" />
+    <result column="last_reviewer" jdbcType="VARCHAR" property="lastReviewer" />
+    <result column="checker" jdbcType="VARCHAR" property="checker" />
+    <result column="check_time" jdbcType="TIMESTAMP" property="checkTime" />
+    <result column="back_label" jdbcType="TINYINT" property="backLabel" />
+    <result column="remind_label" jdbcType="TINYINT" property="remindLabel" />
+    <result column="loan_usage" jdbcType="VARCHAR" property="loanUsage" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="area_code" jdbcType="VARCHAR" property="areaCode" />
+    <result column="wait_settle" jdbcType="BIT" property="waitSettle" />
+    <result column="wait_settle_time" jdbcType="TIMESTAMP" property="waitSettleTime" />
+    <result column="delay" jdbcType="BIT" property="delay" />
+    <result column="overdue" jdbcType="BIT" property="overdue" />
+    <result column="platform" jdbcType="VARCHAR" property="platform" />
+    <result column="reject_code" jdbcType="VARCHAR" property="rejectCode" />
+    <result column="pause_code" jdbcType="VARCHAR" property="pauseCode" />
+    <result column="repay_review_status" jdbcType="TINYINT" property="repayReviewStatus" />
+    <result column="withdraw_review_status" jdbcType="TINYINT" property="withdrawReviewStatus" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="delay_times" jdbcType="INTEGER" property="delayTimes" />
+    <result column="channel" jdbcType="VARCHAR" property="channel" />
+    <result column="delay_status" jdbcType="TINYINT" property="delayStatus" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, create_time, update_time, order_id, user_id, product_id, status, withdraw_status, 
+    review_status, repay_status, ext_pay_status, pause_status, supplement_status, check_status, 
+    bank_review_status, interest_ratio, overdue_ratio, overdue_max_ratio, loan_days, 
+    apply_time, withdraw_time, should_return_date, delay_return_date, repaid_over_time, 
+    first, loan_model, loan_amount, ext_fee_amount, interest_amount, in_hand_amount, 
+    withdraw_amount, repaid_amount, reduction_amount, repaid_principal_amount, repaid_overdue_amount, 
+    repaid_interest_amount, repaid_extfee_amount, repaid_other_amount, bank_card_id, 
+    bank_id, pause_time, review_time, first_allot_status, last_allot_status, check_allot_status, 
+    first_reviewer, last_reviewer, checker, check_time, back_label, remind_label, loan_usage, 
+    name, mobile, area_code, wait_settle, wait_settle_time, delay, overdue, platform, 
+    reject_code, pause_code, repay_review_status, withdraw_review_status, remark, delay_times, 
+    channel, delay_status
+  </sql>
+  <select id="selectByExample" parameterType="com.zml.demo.producer.dao.model.OLendExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from o_lend
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from o_lend
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from o_lend
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zml.demo.producer.dao.model.OLendExample">
+    delete from o_lend
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zml.demo.producer.dao.model.OLend">
+    insert into o_lend (id, create_time, update_time, 
+      order_id, user_id, product_id, 
+      status, withdraw_status, review_status, 
+      repay_status, ext_pay_status, pause_status, 
+      supplement_status, check_status, bank_review_status, 
+      interest_ratio, overdue_ratio, overdue_max_ratio, 
+      loan_days, apply_time, withdraw_time, 
+      should_return_date, delay_return_date, repaid_over_time, 
+      first, loan_model, loan_amount, 
+      ext_fee_amount, interest_amount, in_hand_amount, 
+      withdraw_amount, repaid_amount, reduction_amount, 
+      repaid_principal_amount, repaid_overdue_amount, 
+      repaid_interest_amount, repaid_extfee_amount, 
+      repaid_other_amount, bank_card_id, bank_id, 
+      pause_time, review_time, first_allot_status, 
+      last_allot_status, check_allot_status, first_reviewer, 
+      last_reviewer, checker, check_time, 
+      back_label, remind_label, loan_usage, 
+      name, mobile, area_code, 
+      wait_settle, wait_settle_time, delay, 
+      overdue, platform, reject_code, 
+      pause_code, repay_review_status, withdraw_review_status, 
+      remark, delay_times, channel, 
+      delay_status)
+    values (#{id,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{orderId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{productId,jdbcType=VARCHAR}, 
+      #{status,jdbcType=TINYINT}, #{withdrawStatus,jdbcType=TINYINT}, #{reviewStatus,jdbcType=TINYINT}, 
+      #{repayStatus,jdbcType=TINYINT}, #{extPayStatus,jdbcType=TINYINT}, #{pauseStatus,jdbcType=BIT}, 
+      #{supplementStatus,jdbcType=TINYINT}, #{checkStatus,jdbcType=TINYINT}, #{bankReviewStatus,jdbcType=TINYINT}, 
+      #{interestRatio,jdbcType=DECIMAL}, #{overdueRatio,jdbcType=DECIMAL}, #{overdueMaxRatio,jdbcType=DECIMAL}, 
+      #{loanDays,jdbcType=INTEGER}, #{applyTime,jdbcType=TIMESTAMP}, #{withdrawTime,jdbcType=TIMESTAMP}, 
+      #{shouldReturnDate,jdbcType=DATE}, #{delayReturnDate,jdbcType=DATE}, #{repaidOverTime,jdbcType=TIMESTAMP}, 
+      #{first,jdbcType=TINYINT}, #{loanModel,jdbcType=TINYINT}, #{loanAmount,jdbcType=DECIMAL}, 
+      #{extFeeAmount,jdbcType=DECIMAL}, #{interestAmount,jdbcType=DECIMAL}, #{inHandAmount,jdbcType=DECIMAL}, 
+      #{withdrawAmount,jdbcType=DECIMAL}, #{repaidAmount,jdbcType=DECIMAL}, #{reductionAmount,jdbcType=DECIMAL}, 
+      #{repaidPrincipalAmount,jdbcType=DECIMAL}, #{repaidOverdueAmount,jdbcType=DECIMAL}, 
+      #{repaidInterestAmount,jdbcType=DECIMAL}, #{repaidExtfeeAmount,jdbcType=DECIMAL}, 
+      #{repaidOtherAmount,jdbcType=DECIMAL}, #{bankCardId,jdbcType=INTEGER}, #{bankId,jdbcType=INTEGER}, 
+      #{pauseTime,jdbcType=TIMESTAMP}, #{reviewTime,jdbcType=TIMESTAMP}, #{firstAllotStatus,jdbcType=BIT}, 
+      #{lastAllotStatus,jdbcType=BIT}, #{checkAllotStatus,jdbcType=BIT}, #{firstReviewer,jdbcType=VARCHAR}, 
+      #{lastReviewer,jdbcType=VARCHAR}, #{checker,jdbcType=VARCHAR}, #{checkTime,jdbcType=TIMESTAMP}, 
+      #{backLabel,jdbcType=TINYINT}, #{remindLabel,jdbcType=TINYINT}, #{loanUsage,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{areaCode,jdbcType=VARCHAR}, 
+      #{waitSettle,jdbcType=BIT}, #{waitSettleTime,jdbcType=TIMESTAMP}, #{delay,jdbcType=BIT}, 
+      #{overdue,jdbcType=BIT}, #{platform,jdbcType=VARCHAR}, #{rejectCode,jdbcType=VARCHAR}, 
+      #{pauseCode,jdbcType=VARCHAR}, #{repayReviewStatus,jdbcType=TINYINT}, #{withdrawReviewStatus,jdbcType=TINYINT}, 
+      #{remark,jdbcType=VARCHAR}, #{delayTimes,jdbcType=INTEGER}, #{channel,jdbcType=VARCHAR}, 
+      #{delayStatus,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zml.demo.producer.dao.model.OLend">
+    insert into o_lend
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="withdrawStatus != null">
+        withdraw_status,
+      </if>
+      <if test="reviewStatus != null">
+        review_status,
+      </if>
+      <if test="repayStatus != null">
+        repay_status,
+      </if>
+      <if test="extPayStatus != null">
+        ext_pay_status,
+      </if>
+      <if test="pauseStatus != null">
+        pause_status,
+      </if>
+      <if test="supplementStatus != null">
+        supplement_status,
+      </if>
+      <if test="checkStatus != null">
+        check_status,
+      </if>
+      <if test="bankReviewStatus != null">
+        bank_review_status,
+      </if>
+      <if test="interestRatio != null">
+        interest_ratio,
+      </if>
+      <if test="overdueRatio != null">
+        overdue_ratio,
+      </if>
+      <if test="overdueMaxRatio != null">
+        overdue_max_ratio,
+      </if>
+      <if test="loanDays != null">
+        loan_days,
+      </if>
+      <if test="applyTime != null">
+        apply_time,
+      </if>
+      <if test="withdrawTime != null">
+        withdraw_time,
+      </if>
+      <if test="shouldReturnDate != null">
+        should_return_date,
+      </if>
+      <if test="delayReturnDate != null">
+        delay_return_date,
+      </if>
+      <if test="repaidOverTime != null">
+        repaid_over_time,
+      </if>
+      <if test="first != null">
+        first,
+      </if>
+      <if test="loanModel != null">
+        loan_model,
+      </if>
+      <if test="loanAmount != null">
+        loan_amount,
+      </if>
+      <if test="extFeeAmount != null">
+        ext_fee_amount,
+      </if>
+      <if test="interestAmount != null">
+        interest_amount,
+      </if>
+      <if test="inHandAmount != null">
+        in_hand_amount,
+      </if>
+      <if test="withdrawAmount != null">
+        withdraw_amount,
+      </if>
+      <if test="repaidAmount != null">
+        repaid_amount,
+      </if>
+      <if test="reductionAmount != null">
+        reduction_amount,
+      </if>
+      <if test="repaidPrincipalAmount != null">
+        repaid_principal_amount,
+      </if>
+      <if test="repaidOverdueAmount != null">
+        repaid_overdue_amount,
+      </if>
+      <if test="repaidInterestAmount != null">
+        repaid_interest_amount,
+      </if>
+      <if test="repaidExtfeeAmount != null">
+        repaid_extfee_amount,
+      </if>
+      <if test="repaidOtherAmount != null">
+        repaid_other_amount,
+      </if>
+      <if test="bankCardId != null">
+        bank_card_id,
+      </if>
+      <if test="bankId != null">
+        bank_id,
+      </if>
+      <if test="pauseTime != null">
+        pause_time,
+      </if>
+      <if test="reviewTime != null">
+        review_time,
+      </if>
+      <if test="firstAllotStatus != null">
+        first_allot_status,
+      </if>
+      <if test="lastAllotStatus != null">
+        last_allot_status,
+      </if>
+      <if test="checkAllotStatus != null">
+        check_allot_status,
+      </if>
+      <if test="firstReviewer != null">
+        first_reviewer,
+      </if>
+      <if test="lastReviewer != null">
+        last_reviewer,
+      </if>
+      <if test="checker != null">
+        checker,
+      </if>
+      <if test="checkTime != null">
+        check_time,
+      </if>
+      <if test="backLabel != null">
+        back_label,
+      </if>
+      <if test="remindLabel != null">
+        remind_label,
+      </if>
+      <if test="loanUsage != null">
+        loan_usage,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="areaCode != null">
+        area_code,
+      </if>
+      <if test="waitSettle != null">
+        wait_settle,
+      </if>
+      <if test="waitSettleTime != null">
+        wait_settle_time,
+      </if>
+      <if test="delay != null">
+        delay,
+      </if>
+      <if test="overdue != null">
+        overdue,
+      </if>
+      <if test="platform != null">
+        platform,
+      </if>
+      <if test="rejectCode != null">
+        reject_code,
+      </if>
+      <if test="pauseCode != null">
+        pause_code,
+      </if>
+      <if test="repayReviewStatus != null">
+        repay_review_status,
+      </if>
+      <if test="withdrawReviewStatus != null">
+        withdraw_review_status,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="delayTimes != null">
+        delay_times,
+      </if>
+      <if test="channel != null">
+        channel,
+      </if>
+      <if test="delayStatus != null">
+        delay_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="withdrawStatus != null">
+        #{withdrawStatus,jdbcType=TINYINT},
+      </if>
+      <if test="reviewStatus != null">
+        #{reviewStatus,jdbcType=TINYINT},
+      </if>
+      <if test="repayStatus != null">
+        #{repayStatus,jdbcType=TINYINT},
+      </if>
+      <if test="extPayStatus != null">
+        #{extPayStatus,jdbcType=TINYINT},
+      </if>
+      <if test="pauseStatus != null">
+        #{pauseStatus,jdbcType=BIT},
+      </if>
+      <if test="supplementStatus != null">
+        #{supplementStatus,jdbcType=TINYINT},
+      </if>
+      <if test="checkStatus != null">
+        #{checkStatus,jdbcType=TINYINT},
+      </if>
+      <if test="bankReviewStatus != null">
+        #{bankReviewStatus,jdbcType=TINYINT},
+      </if>
+      <if test="interestRatio != null">
+        #{interestRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="overdueRatio != null">
+        #{overdueRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="overdueMaxRatio != null">
+        #{overdueMaxRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="loanDays != null">
+        #{loanDays,jdbcType=INTEGER},
+      </if>
+      <if test="applyTime != null">
+        #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="withdrawTime != null">
+        #{withdrawTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shouldReturnDate != null">
+        #{shouldReturnDate,jdbcType=DATE},
+      </if>
+      <if test="delayReturnDate != null">
+        #{delayReturnDate,jdbcType=DATE},
+      </if>
+      <if test="repaidOverTime != null">
+        #{repaidOverTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="first != null">
+        #{first,jdbcType=TINYINT},
+      </if>
+      <if test="loanModel != null">
+        #{loanModel,jdbcType=TINYINT},
+      </if>
+      <if test="loanAmount != null">
+        #{loanAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="extFeeAmount != null">
+        #{extFeeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="interestAmount != null">
+        #{interestAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="inHandAmount != null">
+        #{inHandAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="withdrawAmount != null">
+        #{withdrawAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="repaidAmount != null">
+        #{repaidAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="reductionAmount != null">
+        #{reductionAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="repaidPrincipalAmount != null">
+        #{repaidPrincipalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="repaidOverdueAmount != null">
+        #{repaidOverdueAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="repaidInterestAmount != null">
+        #{repaidInterestAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="repaidExtfeeAmount != null">
+        #{repaidExtfeeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="repaidOtherAmount != null">
+        #{repaidOtherAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="bankCardId != null">
+        #{bankCardId,jdbcType=INTEGER},
+      </if>
+      <if test="bankId != null">
+        #{bankId,jdbcType=INTEGER},
+      </if>
+      <if test="pauseTime != null">
+        #{pauseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reviewTime != null">
+        #{reviewTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="firstAllotStatus != null">
+        #{firstAllotStatus,jdbcType=BIT},
+      </if>
+      <if test="lastAllotStatus != null">
+        #{lastAllotStatus,jdbcType=BIT},
+      </if>
+      <if test="checkAllotStatus != null">
+        #{checkAllotStatus,jdbcType=BIT},
+      </if>
+      <if test="firstReviewer != null">
+        #{firstReviewer,jdbcType=VARCHAR},
+      </if>
+      <if test="lastReviewer != null">
+        #{lastReviewer,jdbcType=VARCHAR},
+      </if>
+      <if test="checker != null">
+        #{checker,jdbcType=VARCHAR},
+      </if>
+      <if test="checkTime != null">
+        #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="backLabel != null">
+        #{backLabel,jdbcType=TINYINT},
+      </if>
+      <if test="remindLabel != null">
+        #{remindLabel,jdbcType=TINYINT},
+      </if>
+      <if test="loanUsage != null">
+        #{loanUsage,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCode != null">
+        #{areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="waitSettle != null">
+        #{waitSettle,jdbcType=BIT},
+      </if>
+      <if test="waitSettleTime != null">
+        #{waitSettleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delay != null">
+        #{delay,jdbcType=BIT},
+      </if>
+      <if test="overdue != null">
+        #{overdue,jdbcType=BIT},
+      </if>
+      <if test="platform != null">
+        #{platform,jdbcType=VARCHAR},
+      </if>
+      <if test="rejectCode != null">
+        #{rejectCode,jdbcType=VARCHAR},
+      </if>
+      <if test="pauseCode != null">
+        #{pauseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="repayReviewStatus != null">
+        #{repayReviewStatus,jdbcType=TINYINT},
+      </if>
+      <if test="withdrawReviewStatus != null">
+        #{withdrawReviewStatus,jdbcType=TINYINT},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="delayTimes != null">
+        #{delayTimes,jdbcType=INTEGER},
+      </if>
+      <if test="channel != null">
+        #{channel,jdbcType=VARCHAR},
+      </if>
+      <if test="delayStatus != null">
+        #{delayStatus,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zml.demo.producer.dao.model.OLendExample" resultType="java.lang.Long">
+    select count(*) from o_lend
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update o_lend
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.orderId != null">
+        order_id = #{record.orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productId != null">
+        product_id = #{record.productId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=TINYINT},
+      </if>
+      <if test="record.withdrawStatus != null">
+        withdraw_status = #{record.withdrawStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.reviewStatus != null">
+        review_status = #{record.reviewStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.repayStatus != null">
+        repay_status = #{record.repayStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.extPayStatus != null">
+        ext_pay_status = #{record.extPayStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.pauseStatus != null">
+        pause_status = #{record.pauseStatus,jdbcType=BIT},
+      </if>
+      <if test="record.supplementStatus != null">
+        supplement_status = #{record.supplementStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.checkStatus != null">
+        check_status = #{record.checkStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.bankReviewStatus != null">
+        bank_review_status = #{record.bankReviewStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.interestRatio != null">
+        interest_ratio = #{record.interestRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="record.overdueRatio != null">
+        overdue_ratio = #{record.overdueRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="record.overdueMaxRatio != null">
+        overdue_max_ratio = #{record.overdueMaxRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="record.loanDays != null">
+        loan_days = #{record.loanDays,jdbcType=INTEGER},
+      </if>
+      <if test="record.applyTime != null">
+        apply_time = #{record.applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.withdrawTime != null">
+        withdraw_time = #{record.withdrawTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.shouldReturnDate != null">
+        should_return_date = #{record.shouldReturnDate,jdbcType=DATE},
+      </if>
+      <if test="record.delayReturnDate != null">
+        delay_return_date = #{record.delayReturnDate,jdbcType=DATE},
+      </if>
+      <if test="record.repaidOverTime != null">
+        repaid_over_time = #{record.repaidOverTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.first != null">
+        first = #{record.first,jdbcType=TINYINT},
+      </if>
+      <if test="record.loanModel != null">
+        loan_model = #{record.loanModel,jdbcType=TINYINT},
+      </if>
+      <if test="record.loanAmount != null">
+        loan_amount = #{record.loanAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.extFeeAmount != null">
+        ext_fee_amount = #{record.extFeeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.interestAmount != null">
+        interest_amount = #{record.interestAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.inHandAmount != null">
+        in_hand_amount = #{record.inHandAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.withdrawAmount != null">
+        withdraw_amount = #{record.withdrawAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.repaidAmount != null">
+        repaid_amount = #{record.repaidAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.reductionAmount != null">
+        reduction_amount = #{record.reductionAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.repaidPrincipalAmount != null">
+        repaid_principal_amount = #{record.repaidPrincipalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.repaidOverdueAmount != null">
+        repaid_overdue_amount = #{record.repaidOverdueAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.repaidInterestAmount != null">
+        repaid_interest_amount = #{record.repaidInterestAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.repaidExtfeeAmount != null">
+        repaid_extfee_amount = #{record.repaidExtfeeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.repaidOtherAmount != null">
+        repaid_other_amount = #{record.repaidOtherAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.bankCardId != null">
+        bank_card_id = #{record.bankCardId,jdbcType=INTEGER},
+      </if>
+      <if test="record.bankId != null">
+        bank_id = #{record.bankId,jdbcType=INTEGER},
+      </if>
+      <if test="record.pauseTime != null">
+        pause_time = #{record.pauseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.reviewTime != null">
+        review_time = #{record.reviewTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.firstAllotStatus != null">
+        first_allot_status = #{record.firstAllotStatus,jdbcType=BIT},
+      </if>
+      <if test="record.lastAllotStatus != null">
+        last_allot_status = #{record.lastAllotStatus,jdbcType=BIT},
+      </if>
+      <if test="record.checkAllotStatus != null">
+        check_allot_status = #{record.checkAllotStatus,jdbcType=BIT},
+      </if>
+      <if test="record.firstReviewer != null">
+        first_reviewer = #{record.firstReviewer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastReviewer != null">
+        last_reviewer = #{record.lastReviewer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checker != null">
+        checker = #{record.checker,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkTime != null">
+        check_time = #{record.checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.backLabel != null">
+        back_label = #{record.backLabel,jdbcType=TINYINT},
+      </if>
+      <if test="record.remindLabel != null">
+        remind_label = #{record.remindLabel,jdbcType=TINYINT},
+      </if>
+      <if test="record.loanUsage != null">
+        loan_usage = #{record.loanUsage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobile != null">
+        mobile = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areaCode != null">
+        area_code = #{record.areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.waitSettle != null">
+        wait_settle = #{record.waitSettle,jdbcType=BIT},
+      </if>
+      <if test="record.waitSettleTime != null">
+        wait_settle_time = #{record.waitSettleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.delay != null">
+        delay = #{record.delay,jdbcType=BIT},
+      </if>
+      <if test="record.overdue != null">
+        overdue = #{record.overdue,jdbcType=BIT},
+      </if>
+      <if test="record.platform != null">
+        platform = #{record.platform,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rejectCode != null">
+        reject_code = #{record.rejectCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pauseCode != null">
+        pause_code = #{record.pauseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repayReviewStatus != null">
+        repay_review_status = #{record.repayReviewStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.withdrawReviewStatus != null">
+        withdraw_review_status = #{record.withdrawReviewStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.delayTimes != null">
+        delay_times = #{record.delayTimes,jdbcType=INTEGER},
+      </if>
+      <if test="record.channel != null">
+        channel = #{record.channel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.delayStatus != null">
+        delay_status = #{record.delayStatus,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update o_lend
+    set id = #{record.id,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      order_id = #{record.orderId,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      product_id = #{record.productId,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=TINYINT},
+      withdraw_status = #{record.withdrawStatus,jdbcType=TINYINT},
+      review_status = #{record.reviewStatus,jdbcType=TINYINT},
+      repay_status = #{record.repayStatus,jdbcType=TINYINT},
+      ext_pay_status = #{record.extPayStatus,jdbcType=TINYINT},
+      pause_status = #{record.pauseStatus,jdbcType=BIT},
+      supplement_status = #{record.supplementStatus,jdbcType=TINYINT},
+      check_status = #{record.checkStatus,jdbcType=TINYINT},
+      bank_review_status = #{record.bankReviewStatus,jdbcType=TINYINT},
+      interest_ratio = #{record.interestRatio,jdbcType=DECIMAL},
+      overdue_ratio = #{record.overdueRatio,jdbcType=DECIMAL},
+      overdue_max_ratio = #{record.overdueMaxRatio,jdbcType=DECIMAL},
+      loan_days = #{record.loanDays,jdbcType=INTEGER},
+      apply_time = #{record.applyTime,jdbcType=TIMESTAMP},
+      withdraw_time = #{record.withdrawTime,jdbcType=TIMESTAMP},
+      should_return_date = #{record.shouldReturnDate,jdbcType=DATE},
+      delay_return_date = #{record.delayReturnDate,jdbcType=DATE},
+      repaid_over_time = #{record.repaidOverTime,jdbcType=TIMESTAMP},
+      first = #{record.first,jdbcType=TINYINT},
+      loan_model = #{record.loanModel,jdbcType=TINYINT},
+      loan_amount = #{record.loanAmount,jdbcType=DECIMAL},
+      ext_fee_amount = #{record.extFeeAmount,jdbcType=DECIMAL},
+      interest_amount = #{record.interestAmount,jdbcType=DECIMAL},
+      in_hand_amount = #{record.inHandAmount,jdbcType=DECIMAL},
+      withdraw_amount = #{record.withdrawAmount,jdbcType=DECIMAL},
+      repaid_amount = #{record.repaidAmount,jdbcType=DECIMAL},
+      reduction_amount = #{record.reductionAmount,jdbcType=DECIMAL},
+      repaid_principal_amount = #{record.repaidPrincipalAmount,jdbcType=DECIMAL},
+      repaid_overdue_amount = #{record.repaidOverdueAmount,jdbcType=DECIMAL},
+      repaid_interest_amount = #{record.repaidInterestAmount,jdbcType=DECIMAL},
+      repaid_extfee_amount = #{record.repaidExtfeeAmount,jdbcType=DECIMAL},
+      repaid_other_amount = #{record.repaidOtherAmount,jdbcType=DECIMAL},
+      bank_card_id = #{record.bankCardId,jdbcType=INTEGER},
+      bank_id = #{record.bankId,jdbcType=INTEGER},
+      pause_time = #{record.pauseTime,jdbcType=TIMESTAMP},
+      review_time = #{record.reviewTime,jdbcType=TIMESTAMP},
+      first_allot_status = #{record.firstAllotStatus,jdbcType=BIT},
+      last_allot_status = #{record.lastAllotStatus,jdbcType=BIT},
+      check_allot_status = #{record.checkAllotStatus,jdbcType=BIT},
+      first_reviewer = #{record.firstReviewer,jdbcType=VARCHAR},
+      last_reviewer = #{record.lastReviewer,jdbcType=VARCHAR},
+      checker = #{record.checker,jdbcType=VARCHAR},
+      check_time = #{record.checkTime,jdbcType=TIMESTAMP},
+      back_label = #{record.backLabel,jdbcType=TINYINT},
+      remind_label = #{record.remindLabel,jdbcType=TINYINT},
+      loan_usage = #{record.loanUsage,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      mobile = #{record.mobile,jdbcType=VARCHAR},
+      area_code = #{record.areaCode,jdbcType=VARCHAR},
+      wait_settle = #{record.waitSettle,jdbcType=BIT},
+      wait_settle_time = #{record.waitSettleTime,jdbcType=TIMESTAMP},
+      delay = #{record.delay,jdbcType=BIT},
+      overdue = #{record.overdue,jdbcType=BIT},
+      platform = #{record.platform,jdbcType=VARCHAR},
+      reject_code = #{record.rejectCode,jdbcType=VARCHAR},
+      pause_code = #{record.pauseCode,jdbcType=VARCHAR},
+      repay_review_status = #{record.repayReviewStatus,jdbcType=TINYINT},
+      withdraw_review_status = #{record.withdrawReviewStatus,jdbcType=TINYINT},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      delay_times = #{record.delayTimes,jdbcType=INTEGER},
+      channel = #{record.channel,jdbcType=VARCHAR},
+      delay_status = #{record.delayStatus,jdbcType=TINYINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zml.demo.producer.dao.model.OLend">
+    update o_lend
+    <set>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        product_id = #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="withdrawStatus != null">
+        withdraw_status = #{withdrawStatus,jdbcType=TINYINT},
+      </if>
+      <if test="reviewStatus != null">
+        review_status = #{reviewStatus,jdbcType=TINYINT},
+      </if>
+      <if test="repayStatus != null">
+        repay_status = #{repayStatus,jdbcType=TINYINT},
+      </if>
+      <if test="extPayStatus != null">
+        ext_pay_status = #{extPayStatus,jdbcType=TINYINT},
+      </if>
+      <if test="pauseStatus != null">
+        pause_status = #{pauseStatus,jdbcType=BIT},
+      </if>
+      <if test="supplementStatus != null">
+        supplement_status = #{supplementStatus,jdbcType=TINYINT},
+      </if>
+      <if test="checkStatus != null">
+        check_status = #{checkStatus,jdbcType=TINYINT},
+      </if>
+      <if test="bankReviewStatus != null">
+        bank_review_status = #{bankReviewStatus,jdbcType=TINYINT},
+      </if>
+      <if test="interestRatio != null">
+        interest_ratio = #{interestRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="overdueRatio != null">
+        overdue_ratio = #{overdueRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="overdueMaxRatio != null">
+        overdue_max_ratio = #{overdueMaxRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="loanDays != null">
+        loan_days = #{loanDays,jdbcType=INTEGER},
+      </if>
+      <if test="applyTime != null">
+        apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="withdrawTime != null">
+        withdraw_time = #{withdrawTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shouldReturnDate != null">
+        should_return_date = #{shouldReturnDate,jdbcType=DATE},
+      </if>
+      <if test="delayReturnDate != null">
+        delay_return_date = #{delayReturnDate,jdbcType=DATE},
+      </if>
+      <if test="repaidOverTime != null">
+        repaid_over_time = #{repaidOverTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="first != null">
+        first = #{first,jdbcType=TINYINT},
+      </if>
+      <if test="loanModel != null">
+        loan_model = #{loanModel,jdbcType=TINYINT},
+      </if>
+      <if test="loanAmount != null">
+        loan_amount = #{loanAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="extFeeAmount != null">
+        ext_fee_amount = #{extFeeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="interestAmount != null">
+        interest_amount = #{interestAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="inHandAmount != null">
+        in_hand_amount = #{inHandAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="withdrawAmount != null">
+        withdraw_amount = #{withdrawAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="repaidAmount != null">
+        repaid_amount = #{repaidAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="reductionAmount != null">
+        reduction_amount = #{reductionAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="repaidPrincipalAmount != null">
+        repaid_principal_amount = #{repaidPrincipalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="repaidOverdueAmount != null">
+        repaid_overdue_amount = #{repaidOverdueAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="repaidInterestAmount != null">
+        repaid_interest_amount = #{repaidInterestAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="repaidExtfeeAmount != null">
+        repaid_extfee_amount = #{repaidExtfeeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="repaidOtherAmount != null">
+        repaid_other_amount = #{repaidOtherAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="bankCardId != null">
+        bank_card_id = #{bankCardId,jdbcType=INTEGER},
+      </if>
+      <if test="bankId != null">
+        bank_id = #{bankId,jdbcType=INTEGER},
+      </if>
+      <if test="pauseTime != null">
+        pause_time = #{pauseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reviewTime != null">
+        review_time = #{reviewTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="firstAllotStatus != null">
+        first_allot_status = #{firstAllotStatus,jdbcType=BIT},
+      </if>
+      <if test="lastAllotStatus != null">
+        last_allot_status = #{lastAllotStatus,jdbcType=BIT},
+      </if>
+      <if test="checkAllotStatus != null">
+        check_allot_status = #{checkAllotStatus,jdbcType=BIT},
+      </if>
+      <if test="firstReviewer != null">
+        first_reviewer = #{firstReviewer,jdbcType=VARCHAR},
+      </if>
+      <if test="lastReviewer != null">
+        last_reviewer = #{lastReviewer,jdbcType=VARCHAR},
+      </if>
+      <if test="checker != null">
+        checker = #{checker,jdbcType=VARCHAR},
+      </if>
+      <if test="checkTime != null">
+        check_time = #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="backLabel != null">
+        back_label = #{backLabel,jdbcType=TINYINT},
+      </if>
+      <if test="remindLabel != null">
+        remind_label = #{remindLabel,jdbcType=TINYINT},
+      </if>
+      <if test="loanUsage != null">
+        loan_usage = #{loanUsage,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCode != null">
+        area_code = #{areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="waitSettle != null">
+        wait_settle = #{waitSettle,jdbcType=BIT},
+      </if>
+      <if test="waitSettleTime != null">
+        wait_settle_time = #{waitSettleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delay != null">
+        delay = #{delay,jdbcType=BIT},
+      </if>
+      <if test="overdue != null">
+        overdue = #{overdue,jdbcType=BIT},
+      </if>
+      <if test="platform != null">
+        platform = #{platform,jdbcType=VARCHAR},
+      </if>
+      <if test="rejectCode != null">
+        reject_code = #{rejectCode,jdbcType=VARCHAR},
+      </if>
+      <if test="pauseCode != null">
+        pause_code = #{pauseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="repayReviewStatus != null">
+        repay_review_status = #{repayReviewStatus,jdbcType=TINYINT},
+      </if>
+      <if test="withdrawReviewStatus != null">
+        withdraw_review_status = #{withdrawReviewStatus,jdbcType=TINYINT},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="delayTimes != null">
+        delay_times = #{delayTimes,jdbcType=INTEGER},
+      </if>
+      <if test="channel != null">
+        channel = #{channel,jdbcType=VARCHAR},
+      </if>
+      <if test="delayStatus != null">
+        delay_status = #{delayStatus,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zml.demo.producer.dao.model.OLend">
+    update o_lend
+    set create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      order_id = #{orderId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      product_id = #{productId,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      withdraw_status = #{withdrawStatus,jdbcType=TINYINT},
+      review_status = #{reviewStatus,jdbcType=TINYINT},
+      repay_status = #{repayStatus,jdbcType=TINYINT},
+      ext_pay_status = #{extPayStatus,jdbcType=TINYINT},
+      pause_status = #{pauseStatus,jdbcType=BIT},
+      supplement_status = #{supplementStatus,jdbcType=TINYINT},
+      check_status = #{checkStatus,jdbcType=TINYINT},
+      bank_review_status = #{bankReviewStatus,jdbcType=TINYINT},
+      interest_ratio = #{interestRatio,jdbcType=DECIMAL},
+      overdue_ratio = #{overdueRatio,jdbcType=DECIMAL},
+      overdue_max_ratio = #{overdueMaxRatio,jdbcType=DECIMAL},
+      loan_days = #{loanDays,jdbcType=INTEGER},
+      apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      withdraw_time = #{withdrawTime,jdbcType=TIMESTAMP},
+      should_return_date = #{shouldReturnDate,jdbcType=DATE},
+      delay_return_date = #{delayReturnDate,jdbcType=DATE},
+      repaid_over_time = #{repaidOverTime,jdbcType=TIMESTAMP},
+      first = #{first,jdbcType=TINYINT},
+      loan_model = #{loanModel,jdbcType=TINYINT},
+      loan_amount = #{loanAmount,jdbcType=DECIMAL},
+      ext_fee_amount = #{extFeeAmount,jdbcType=DECIMAL},
+      interest_amount = #{interestAmount,jdbcType=DECIMAL},
+      in_hand_amount = #{inHandAmount,jdbcType=DECIMAL},
+      withdraw_amount = #{withdrawAmount,jdbcType=DECIMAL},
+      repaid_amount = #{repaidAmount,jdbcType=DECIMAL},
+      reduction_amount = #{reductionAmount,jdbcType=DECIMAL},
+      repaid_principal_amount = #{repaidPrincipalAmount,jdbcType=DECIMAL},
+      repaid_overdue_amount = #{repaidOverdueAmount,jdbcType=DECIMAL},
+      repaid_interest_amount = #{repaidInterestAmount,jdbcType=DECIMAL},
+      repaid_extfee_amount = #{repaidExtfeeAmount,jdbcType=DECIMAL},
+      repaid_other_amount = #{repaidOtherAmount,jdbcType=DECIMAL},
+      bank_card_id = #{bankCardId,jdbcType=INTEGER},
+      bank_id = #{bankId,jdbcType=INTEGER},
+      pause_time = #{pauseTime,jdbcType=TIMESTAMP},
+      review_time = #{reviewTime,jdbcType=TIMESTAMP},
+      first_allot_status = #{firstAllotStatus,jdbcType=BIT},
+      last_allot_status = #{lastAllotStatus,jdbcType=BIT},
+      check_allot_status = #{checkAllotStatus,jdbcType=BIT},
+      first_reviewer = #{firstReviewer,jdbcType=VARCHAR},
+      last_reviewer = #{lastReviewer,jdbcType=VARCHAR},
+      checker = #{checker,jdbcType=VARCHAR},
+      check_time = #{checkTime,jdbcType=TIMESTAMP},
+      back_label = #{backLabel,jdbcType=TINYINT},
+      remind_label = #{remindLabel,jdbcType=TINYINT},
+      loan_usage = #{loanUsage,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      area_code = #{areaCode,jdbcType=VARCHAR},
+      wait_settle = #{waitSettle,jdbcType=BIT},
+      wait_settle_time = #{waitSettleTime,jdbcType=TIMESTAMP},
+      delay = #{delay,jdbcType=BIT},
+      overdue = #{overdue,jdbcType=BIT},
+      platform = #{platform,jdbcType=VARCHAR},
+      reject_code = #{rejectCode,jdbcType=VARCHAR},
+      pause_code = #{pauseCode,jdbcType=VARCHAR},
+      repay_review_status = #{repayReviewStatus,jdbcType=TINYINT},
+      withdraw_review_status = #{withdrawReviewStatus,jdbcType=TINYINT},
+      remark = #{remark,jdbcType=VARCHAR},
+      delay_times = #{delayTimes,jdbcType=INTEGER},
+      channel = #{channel,jdbcType=VARCHAR},
+      delay_status = #{delayStatus,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

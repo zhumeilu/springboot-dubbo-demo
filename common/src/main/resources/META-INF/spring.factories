@@ -1,0 +1,6 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.lmhd.common.db.MybatisConfiguration,\
+com.lmhd.common.db.DataSourceConfiguration
+#com.lmhd.common.dubbo.DubboAutoConfiguration
+#org.springframework.context.ApplicationContextInitializer=\
+#com.lmhd.common.listener.DubboConfigurationApplicationContextInitializer

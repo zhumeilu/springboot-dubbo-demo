@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zml.demo.producer.dao.mapper.OContactCallRecordsMapper">
+  <resultMap id="BaseResultMap" type="com.zml.demo.producer.dao.model.OContactCallRecords">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="phone_book_id" jdbcType="INTEGER" property="phoneBookId" />
+    <result column="contact_name" jdbcType="VARCHAR" property="contactName" />
+    <result column="contact_mobile" jdbcType="VARCHAR" property="contactMobile" />
+    <result column="operator" jdbcType="VARCHAR" property="operator" />
+    <result column="call_status" jdbcType="INTEGER" property="callStatus" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="call_duration" jdbcType="INTEGER" property="callDuration" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+    <result column="gid" jdbcType="VARCHAR" property="gid" />
+    <result column="call_type" jdbcType="TINYINT" property="callType" />
+    <result column="call_channel" jdbcType="VARCHAR" property="callChannel" />
+    <result column="call_cost" jdbcType="DECIMAL" property="callCost" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, user_id, order_id, phone_book_id, contact_name, contact_mobile, operator, call_status, 
+    create_time, update_time, start_time, end_time, call_duration, remark, file_name, 
+    gid, call_type, call_channel, call_cost
+  </sql>
+  <select id="selectByExample" parameterType="com.zml.demo.producer.dao.model.OContactCallRecordsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from o_contact_call_records
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from o_contact_call_records
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from o_contact_call_records
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zml.demo.producer.dao.model.OContactCallRecordsExample">
+    delete from o_contact_call_records
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zml.demo.producer.dao.model.OContactCallRecords">
+    insert into o_contact_call_records (id, user_id, order_id, 
+      phone_book_id, contact_name, contact_mobile, 
+      operator, call_status, create_time, 
+      update_time, start_time, end_time, 
+      call_duration, remark, file_name, 
+      gid, call_type, call_channel, 
+      call_cost)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, 
+      #{phoneBookId,jdbcType=INTEGER}, #{contactName,jdbcType=VARCHAR}, #{contactMobile,jdbcType=VARCHAR}, 
+      #{operator,jdbcType=VARCHAR}, #{callStatus,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
+      #{callDuration,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, 
+      #{gid,jdbcType=VARCHAR}, #{callType,jdbcType=TINYINT}, #{callChannel,jdbcType=VARCHAR}, 
+      #{callCost,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zml.demo.producer.dao.model.OContactCallRecords">
+    insert into o_contact_call_records
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="phoneBookId != null">
+        phone_book_id,
+      </if>
+      <if test="contactName != null">
+        contact_name,
+      </if>
+      <if test="contactMobile != null">
+        contact_mobile,
+      </if>
+      <if test="operator != null">
+        operator,
+      </if>
+      <if test="callStatus != null">
+        call_status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="callDuration != null">
+        call_duration,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="fileName != null">
+        file_name,
+      </if>
+      <if test="gid != null">
+        gid,
+      </if>
+      <if test="callType != null">
+        call_type,
+      </if>
+      <if test="callChannel != null">
+        call_channel,
+      </if>
+      <if test="callCost != null">
+        call_cost,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneBookId != null">
+        #{phoneBookId,jdbcType=INTEGER},
+      </if>
+      <if test="contactName != null">
+        #{contactName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactMobile != null">
+        #{contactMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null">
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="callStatus != null">
+        #{callStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="callDuration != null">
+        #{callDuration,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null">
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="gid != null">
+        #{gid,jdbcType=VARCHAR},
+      </if>
+      <if test="callType != null">
+        #{callType,jdbcType=TINYINT},
+      </if>
+      <if test="callChannel != null">
+        #{callChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="callCost != null">
+        #{callCost,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zml.demo.producer.dao.model.OContactCallRecordsExample" resultType="java.lang.Long">
+    select count(*) from o_contact_call_records
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update o_contact_call_records
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderId != null">
+        order_id = #{record.orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phoneBookId != null">
+        phone_book_id = #{record.phoneBookId,jdbcType=INTEGER},
+      </if>
+      <if test="record.contactName != null">
+        contact_name = #{record.contactName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contactMobile != null">
+        contact_mobile = #{record.contactMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operator != null">
+        operator = #{record.operator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.callStatus != null">
+        call_status = #{record.callStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.startTime != null">
+        start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endTime != null">
+        end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.callDuration != null">
+        call_duration = #{record.callDuration,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileName != null">
+        file_name = #{record.fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gid != null">
+        gid = #{record.gid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.callType != null">
+        call_type = #{record.callType,jdbcType=TINYINT},
+      </if>
+      <if test="record.callChannel != null">
+        call_channel = #{record.callChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.callCost != null">
+        call_cost = #{record.callCost,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update o_contact_call_records
+    set id = #{record.id,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      order_id = #{record.orderId,jdbcType=VARCHAR},
+      phone_book_id = #{record.phoneBookId,jdbcType=INTEGER},
+      contact_name = #{record.contactName,jdbcType=VARCHAR},
+      contact_mobile = #{record.contactMobile,jdbcType=VARCHAR},
+      operator = #{record.operator,jdbcType=VARCHAR},
+      call_status = #{record.callStatus,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      call_duration = #{record.callDuration,jdbcType=INTEGER},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      file_name = #{record.fileName,jdbcType=VARCHAR},
+      gid = #{record.gid,jdbcType=VARCHAR},
+      call_type = #{record.callType,jdbcType=TINYINT},
+      call_channel = #{record.callChannel,jdbcType=VARCHAR},
+      call_cost = #{record.callCost,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zml.demo.producer.dao.model.OContactCallRecords">
+    update o_contact_call_records
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneBookId != null">
+        phone_book_id = #{phoneBookId,jdbcType=INTEGER},
+      </if>
+      <if test="contactName != null">
+        contact_name = #{contactName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactMobile != null">
+        contact_mobile = #{contactMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null">
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="callStatus != null">
+        call_status = #{callStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="callDuration != null">
+        call_duration = #{callDuration,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null">
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="gid != null">
+        gid = #{gid,jdbcType=VARCHAR},
+      </if>
+      <if test="callType != null">
+        call_type = #{callType,jdbcType=TINYINT},
+      </if>
+      <if test="callChannel != null">
+        call_channel = #{callChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="callCost != null">
+        call_cost = #{callCost,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zml.demo.producer.dao.model.OContactCallRecords">
+    update o_contact_call_records
+    set user_id = #{userId,jdbcType=VARCHAR},
+      order_id = #{orderId,jdbcType=VARCHAR},
+      phone_book_id = #{phoneBookId,jdbcType=INTEGER},
+      contact_name = #{contactName,jdbcType=VARCHAR},
+      contact_mobile = #{contactMobile,jdbcType=VARCHAR},
+      operator = #{operator,jdbcType=VARCHAR},
+      call_status = #{callStatus,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      call_duration = #{callDuration,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      file_name = #{fileName,jdbcType=VARCHAR},
+      gid = #{gid,jdbcType=VARCHAR},
+      call_type = #{callType,jdbcType=TINYINT},
+      call_channel = #{callChannel,jdbcType=VARCHAR},
+      call_cost = #{callCost,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

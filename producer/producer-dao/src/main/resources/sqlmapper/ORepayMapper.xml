@@ -1,0 +1,931 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zml.demo.producer.dao.mapper.ORepayMapper">
+  <resultMap id="BaseResultMap" type="com.zml.demo.producer.dao.model.ORepay">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="repay_order_id" jdbcType="VARCHAR" property="repayOrderId" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="payment_id" jdbcType="VARCHAR" property="paymentId" />
+    <result column="third_order_id" jdbcType="VARCHAR" property="thirdOrderId" />
+    <result column="repay_amount" jdbcType="DECIMAL" property="repayAmount" />
+    <result column="repay_time" jdbcType="TIMESTAMP" property="repayTime" />
+    <result column="confirm_time" jdbcType="TIMESTAMP" property="confirmTime" />
+    <result column="review_status" jdbcType="TINYINT" property="reviewStatus" />
+    <result column="repay_status" jdbcType="TINYINT" property="repayStatus" />
+    <result column="repay_way" jdbcType="VARCHAR" property="repayWay" />
+    <result column="repay_channel" jdbcType="VARCHAR" property="repayChannel" />
+    <result column="repay_third_party_channel" jdbcType="VARCHAR" property="repayThirdPartyChannel" />
+    <result column="repay_result" jdbcType="VARCHAR" property="repayResult" />
+    <result column="pay_proof_url" jdbcType="VARCHAR" property="payProofUrl" />
+    <result column="pay_proof_status" jdbcType="TINYINT" property="payProofStatus" />
+    <result column="upload_time" jdbcType="TIMESTAMP" property="uploadTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="user_repay_amount" jdbcType="DECIMAL" property="userRepayAmount" />
+    <result column="user_repay_time" jdbcType="TIMESTAMP" property="userRepayTime" />
+    <result column="repay_type" jdbcType="TINYINT" property="repayType" />
+    <result column="qr_code" jdbcType="VARCHAR" property="qrCode" />
+    <result column="payer" jdbcType="VARCHAR" property="payer" />
+    <result column="payee" jdbcType="VARCHAR" property="payee" />
+    <result column="repay_source" jdbcType="TINYINT" property="repaySource" />
+    <result column="bank_id" jdbcType="INTEGER" property="bankId" />
+    <result column="bank_name" jdbcType="VARCHAR" property="bankName" />
+    <result column="bank_branch" jdbcType="VARCHAR" property="bankBranch" />
+    <result column="account_no" jdbcType="VARCHAR" property="accountNo" />
+    <result column="bank_card_first_name_th" jdbcType="VARCHAR" property="bankCardFirstNameTh" />
+    <result column="bank_card_last_name_th" jdbcType="VARCHAR" property="bankCardLastNameTh" />
+    <result column="bank_card_first_name_en" jdbcType="VARCHAR" property="bankCardFirstNameEn" />
+    <result column="bank_card_last_name_en" jdbcType="VARCHAR" property="bankCardLastNameEn" />
+    <result column="system_remark" jdbcType="VARCHAR" property="systemRemark" />
+    <result column="company_bank_name" jdbcType="VARCHAR" property="companyBankName" />
+    <result column="company_account_no" jdbcType="VARCHAR" property="companyAccountNo" />
+    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
+    <result column="company_bank_branch" jdbcType="VARCHAR" property="companyBankBranch" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.zml.demo.producer.dao.model.ORepay">
+    <result column="qr_code_data" jdbcType="LONGVARCHAR" property="qrCodeData" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, create_time, update_time, user_id, order_id, repay_order_id, mobile, payment_id, 
+    third_order_id, repay_amount, repay_time, confirm_time, review_status, repay_status, 
+    repay_way, repay_channel, repay_third_party_channel, repay_result, pay_proof_url, 
+    pay_proof_status, upload_time, remark, user_repay_amount, user_repay_time, repay_type, 
+    qr_code, payer, payee, repay_source, bank_id, bank_name, bank_branch, account_no, 
+    bank_card_first_name_th, bank_card_last_name_th, bank_card_first_name_en, bank_card_last_name_en, 
+    system_remark, company_bank_name, company_account_no, company_name, company_bank_branch
+  </sql>
+  <sql id="Blob_Column_List">
+    qr_code_data
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.zml.demo.producer.dao.model.ORepayExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from o_repay
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.zml.demo.producer.dao.model.ORepayExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from o_repay
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from o_repay
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from o_repay
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zml.demo.producer.dao.model.ORepayExample">
+    delete from o_repay
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zml.demo.producer.dao.model.ORepay">
+    insert into o_repay (id, create_time, update_time, 
+      user_id, order_id, repay_order_id, 
+      mobile, payment_id, third_order_id, 
+      repay_amount, repay_time, confirm_time, 
+      review_status, repay_status, repay_way, 
+      repay_channel, repay_third_party_channel, repay_result, 
+      pay_proof_url, pay_proof_status, upload_time, 
+      remark, user_repay_amount, user_repay_time, 
+      repay_type, qr_code, payer, 
+      payee, repay_source, bank_id, 
+      bank_name, bank_branch, account_no, 
+      bank_card_first_name_th, bank_card_last_name_th, 
+      bank_card_first_name_en, bank_card_last_name_en, 
+      system_remark, company_bank_name, company_account_no, 
+      company_name, company_bank_branch, qr_code_data
+      )
+    values (#{id,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{userId,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, #{repayOrderId,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{paymentId,jdbcType=VARCHAR}, #{thirdOrderId,jdbcType=VARCHAR}, 
+      #{repayAmount,jdbcType=DECIMAL}, #{repayTime,jdbcType=TIMESTAMP}, #{confirmTime,jdbcType=TIMESTAMP}, 
+      #{reviewStatus,jdbcType=TINYINT}, #{repayStatus,jdbcType=TINYINT}, #{repayWay,jdbcType=VARCHAR}, 
+      #{repayChannel,jdbcType=VARCHAR}, #{repayThirdPartyChannel,jdbcType=VARCHAR}, #{repayResult,jdbcType=VARCHAR}, 
+      #{payProofUrl,jdbcType=VARCHAR}, #{payProofStatus,jdbcType=TINYINT}, #{uploadTime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR}, #{userRepayAmount,jdbcType=DECIMAL}, #{userRepayTime,jdbcType=TIMESTAMP}, 
+      #{repayType,jdbcType=TINYINT}, #{qrCode,jdbcType=VARCHAR}, #{payer,jdbcType=VARCHAR}, 
+      #{payee,jdbcType=VARCHAR}, #{repaySource,jdbcType=TINYINT}, #{bankId,jdbcType=INTEGER}, 
+      #{bankName,jdbcType=VARCHAR}, #{bankBranch,jdbcType=VARCHAR}, #{accountNo,jdbcType=VARCHAR}, 
+      #{bankCardFirstNameTh,jdbcType=VARCHAR}, #{bankCardLastNameTh,jdbcType=VARCHAR}, 
+      #{bankCardFirstNameEn,jdbcType=VARCHAR}, #{bankCardLastNameEn,jdbcType=VARCHAR}, 
+      #{systemRemark,jdbcType=VARCHAR}, #{companyBankName,jdbcType=VARCHAR}, #{companyAccountNo,jdbcType=VARCHAR}, 
+      #{companyName,jdbcType=VARCHAR}, #{companyBankBranch,jdbcType=VARCHAR}, #{qrCodeData,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zml.demo.producer.dao.model.ORepay">
+    insert into o_repay
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="repayOrderId != null">
+        repay_order_id,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="paymentId != null">
+        payment_id,
+      </if>
+      <if test="thirdOrderId != null">
+        third_order_id,
+      </if>
+      <if test="repayAmount != null">
+        repay_amount,
+      </if>
+      <if test="repayTime != null">
+        repay_time,
+      </if>
+      <if test="confirmTime != null">
+        confirm_time,
+      </if>
+      <if test="reviewStatus != null">
+        review_status,
+      </if>
+      <if test="repayStatus != null">
+        repay_status,
+      </if>
+      <if test="repayWay != null">
+        repay_way,
+      </if>
+      <if test="repayChannel != null">
+        repay_channel,
+      </if>
+      <if test="repayThirdPartyChannel != null">
+        repay_third_party_channel,
+      </if>
+      <if test="repayResult != null">
+        repay_result,
+      </if>
+      <if test="payProofUrl != null">
+        pay_proof_url,
+      </if>
+      <if test="payProofStatus != null">
+        pay_proof_status,
+      </if>
+      <if test="uploadTime != null">
+        upload_time,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="userRepayAmount != null">
+        user_repay_amount,
+      </if>
+      <if test="userRepayTime != null">
+        user_repay_time,
+      </if>
+      <if test="repayType != null">
+        repay_type,
+      </if>
+      <if test="qrCode != null">
+        qr_code,
+      </if>
+      <if test="payer != null">
+        payer,
+      </if>
+      <if test="payee != null">
+        payee,
+      </if>
+      <if test="repaySource != null">
+        repay_source,
+      </if>
+      <if test="bankId != null">
+        bank_id,
+      </if>
+      <if test="bankName != null">
+        bank_name,
+      </if>
+      <if test="bankBranch != null">
+        bank_branch,
+      </if>
+      <if test="accountNo != null">
+        account_no,
+      </if>
+      <if test="bankCardFirstNameTh != null">
+        bank_card_first_name_th,
+      </if>
+      <if test="bankCardLastNameTh != null">
+        bank_card_last_name_th,
+      </if>
+      <if test="bankCardFirstNameEn != null">
+        bank_card_first_name_en,
+      </if>
+      <if test="bankCardLastNameEn != null">
+        bank_card_last_name_en,
+      </if>
+      <if test="systemRemark != null">
+        system_remark,
+      </if>
+      <if test="companyBankName != null">
+        company_bank_name,
+      </if>
+      <if test="companyAccountNo != null">
+        company_account_no,
+      </if>
+      <if test="companyName != null">
+        company_name,
+      </if>
+      <if test="companyBankBranch != null">
+        company_bank_branch,
+      </if>
+      <if test="qrCodeData != null">
+        qr_code_data,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="repayOrderId != null">
+        #{repayOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentId != null">
+        #{paymentId,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdOrderId != null">
+        #{thirdOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="repayAmount != null">
+        #{repayAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="repayTime != null">
+        #{repayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="confirmTime != null">
+        #{confirmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reviewStatus != null">
+        #{reviewStatus,jdbcType=TINYINT},
+      </if>
+      <if test="repayStatus != null">
+        #{repayStatus,jdbcType=TINYINT},
+      </if>
+      <if test="repayWay != null">
+        #{repayWay,jdbcType=VARCHAR},
+      </if>
+      <if test="repayChannel != null">
+        #{repayChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="repayThirdPartyChannel != null">
+        #{repayThirdPartyChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="repayResult != null">
+        #{repayResult,jdbcType=VARCHAR},
+      </if>
+      <if test="payProofUrl != null">
+        #{payProofUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="payProofStatus != null">
+        #{payProofStatus,jdbcType=TINYINT},
+      </if>
+      <if test="uploadTime != null">
+        #{uploadTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="userRepayAmount != null">
+        #{userRepayAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="userRepayTime != null">
+        #{userRepayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="repayType != null">
+        #{repayType,jdbcType=TINYINT},
+      </if>
+      <if test="qrCode != null">
+        #{qrCode,jdbcType=VARCHAR},
+      </if>
+      <if test="payer != null">
+        #{payer,jdbcType=VARCHAR},
+      </if>
+      <if test="payee != null">
+        #{payee,jdbcType=VARCHAR},
+      </if>
+      <if test="repaySource != null">
+        #{repaySource,jdbcType=TINYINT},
+      </if>
+      <if test="bankId != null">
+        #{bankId,jdbcType=INTEGER},
+      </if>
+      <if test="bankName != null">
+        #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankBranch != null">
+        #{bankBranch,jdbcType=VARCHAR},
+      </if>
+      <if test="accountNo != null">
+        #{accountNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCardFirstNameTh != null">
+        #{bankCardFirstNameTh,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCardLastNameTh != null">
+        #{bankCardLastNameTh,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCardFirstNameEn != null">
+        #{bankCardFirstNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCardLastNameEn != null">
+        #{bankCardLastNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="systemRemark != null">
+        #{systemRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="companyBankName != null">
+        #{companyBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyAccountNo != null">
+        #{companyAccountNo,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null">
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyBankBranch != null">
+        #{companyBankBranch,jdbcType=VARCHAR},
+      </if>
+      <if test="qrCodeData != null">
+        #{qrCodeData,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zml.demo.producer.dao.model.ORepayExample" resultType="java.lang.Long">
+    select count(*) from o_repay
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update o_repay
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderId != null">
+        order_id = #{record.orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repayOrderId != null">
+        repay_order_id = #{record.repayOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobile != null">
+        mobile = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paymentId != null">
+        payment_id = #{record.paymentId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.thirdOrderId != null">
+        third_order_id = #{record.thirdOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repayAmount != null">
+        repay_amount = #{record.repayAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.repayTime != null">
+        repay_time = #{record.repayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.confirmTime != null">
+        confirm_time = #{record.confirmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.reviewStatus != null">
+        review_status = #{record.reviewStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.repayStatus != null">
+        repay_status = #{record.repayStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.repayWay != null">
+        repay_way = #{record.repayWay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repayChannel != null">
+        repay_channel = #{record.repayChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repayThirdPartyChannel != null">
+        repay_third_party_channel = #{record.repayThirdPartyChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repayResult != null">
+        repay_result = #{record.repayResult,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payProofUrl != null">
+        pay_proof_url = #{record.payProofUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payProofStatus != null">
+        pay_proof_status = #{record.payProofStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.uploadTime != null">
+        upload_time = #{record.uploadTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userRepayAmount != null">
+        user_repay_amount = #{record.userRepayAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.userRepayTime != null">
+        user_repay_time = #{record.userRepayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.repayType != null">
+        repay_type = #{record.repayType,jdbcType=TINYINT},
+      </if>
+      <if test="record.qrCode != null">
+        qr_code = #{record.qrCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payer != null">
+        payer = #{record.payer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payee != null">
+        payee = #{record.payee,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repaySource != null">
+        repay_source = #{record.repaySource,jdbcType=TINYINT},
+      </if>
+      <if test="record.bankId != null">
+        bank_id = #{record.bankId,jdbcType=INTEGER},
+      </if>
+      <if test="record.bankName != null">
+        bank_name = #{record.bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankBranch != null">
+        bank_branch = #{record.bankBranch,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountNo != null">
+        account_no = #{record.accountNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankCardFirstNameTh != null">
+        bank_card_first_name_th = #{record.bankCardFirstNameTh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankCardLastNameTh != null">
+        bank_card_last_name_th = #{record.bankCardLastNameTh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankCardFirstNameEn != null">
+        bank_card_first_name_en = #{record.bankCardFirstNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankCardLastNameEn != null">
+        bank_card_last_name_en = #{record.bankCardLastNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.systemRemark != null">
+        system_remark = #{record.systemRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyBankName != null">
+        company_bank_name = #{record.companyBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyAccountNo != null">
+        company_account_no = #{record.companyAccountNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyName != null">
+        company_name = #{record.companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyBankBranch != null">
+        company_bank_branch = #{record.companyBankBranch,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qrCodeData != null">
+        qr_code_data = #{record.qrCodeData,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update o_repay
+    set id = #{record.id,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      order_id = #{record.orderId,jdbcType=VARCHAR},
+      repay_order_id = #{record.repayOrderId,jdbcType=VARCHAR},
+      mobile = #{record.mobile,jdbcType=VARCHAR},
+      payment_id = #{record.paymentId,jdbcType=VARCHAR},
+      third_order_id = #{record.thirdOrderId,jdbcType=VARCHAR},
+      repay_amount = #{record.repayAmount,jdbcType=DECIMAL},
+      repay_time = #{record.repayTime,jdbcType=TIMESTAMP},
+      confirm_time = #{record.confirmTime,jdbcType=TIMESTAMP},
+      review_status = #{record.reviewStatus,jdbcType=TINYINT},
+      repay_status = #{record.repayStatus,jdbcType=TINYINT},
+      repay_way = #{record.repayWay,jdbcType=VARCHAR},
+      repay_channel = #{record.repayChannel,jdbcType=VARCHAR},
+      repay_third_party_channel = #{record.repayThirdPartyChannel,jdbcType=VARCHAR},
+      repay_result = #{record.repayResult,jdbcType=VARCHAR},
+      pay_proof_url = #{record.payProofUrl,jdbcType=VARCHAR},
+      pay_proof_status = #{record.payProofStatus,jdbcType=TINYINT},
+      upload_time = #{record.uploadTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      user_repay_amount = #{record.userRepayAmount,jdbcType=DECIMAL},
+      user_repay_time = #{record.userRepayTime,jdbcType=TIMESTAMP},
+      repay_type = #{record.repayType,jdbcType=TINYINT},
+      qr_code = #{record.qrCode,jdbcType=VARCHAR},
+      payer = #{record.payer,jdbcType=VARCHAR},
+      payee = #{record.payee,jdbcType=VARCHAR},
+      repay_source = #{record.repaySource,jdbcType=TINYINT},
+      bank_id = #{record.bankId,jdbcType=INTEGER},
+      bank_name = #{record.bankName,jdbcType=VARCHAR},
+      bank_branch = #{record.bankBranch,jdbcType=VARCHAR},
+      account_no = #{record.accountNo,jdbcType=VARCHAR},
+      bank_card_first_name_th = #{record.bankCardFirstNameTh,jdbcType=VARCHAR},
+      bank_card_last_name_th = #{record.bankCardLastNameTh,jdbcType=VARCHAR},
+      bank_card_first_name_en = #{record.bankCardFirstNameEn,jdbcType=VARCHAR},
+      bank_card_last_name_en = #{record.bankCardLastNameEn,jdbcType=VARCHAR},
+      system_remark = #{record.systemRemark,jdbcType=VARCHAR},
+      company_bank_name = #{record.companyBankName,jdbcType=VARCHAR},
+      company_account_no = #{record.companyAccountNo,jdbcType=VARCHAR},
+      company_name = #{record.companyName,jdbcType=VARCHAR},
+      company_bank_branch = #{record.companyBankBranch,jdbcType=VARCHAR},
+      qr_code_data = #{record.qrCodeData,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update o_repay
+    set id = #{record.id,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      order_id = #{record.orderId,jdbcType=VARCHAR},
+      repay_order_id = #{record.repayOrderId,jdbcType=VARCHAR},
+      mobile = #{record.mobile,jdbcType=VARCHAR},
+      payment_id = #{record.paymentId,jdbcType=VARCHAR},
+      third_order_id = #{record.thirdOrderId,jdbcType=VARCHAR},
+      repay_amount = #{record.repayAmount,jdbcType=DECIMAL},
+      repay_time = #{record.repayTime,jdbcType=TIMESTAMP},
+      confirm_time = #{record.confirmTime,jdbcType=TIMESTAMP},
+      review_status = #{record.reviewStatus,jdbcType=TINYINT},
+      repay_status = #{record.repayStatus,jdbcType=TINYINT},
+      repay_way = #{record.repayWay,jdbcType=VARCHAR},
+      repay_channel = #{record.repayChannel,jdbcType=VARCHAR},
+      repay_third_party_channel = #{record.repayThirdPartyChannel,jdbcType=VARCHAR},
+      repay_result = #{record.repayResult,jdbcType=VARCHAR},
+      pay_proof_url = #{record.payProofUrl,jdbcType=VARCHAR},
+      pay_proof_status = #{record.payProofStatus,jdbcType=TINYINT},
+      upload_time = #{record.uploadTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      user_repay_amount = #{record.userRepayAmount,jdbcType=DECIMAL},
+      user_repay_time = #{record.userRepayTime,jdbcType=TIMESTAMP},
+      repay_type = #{record.repayType,jdbcType=TINYINT},
+      qr_code = #{record.qrCode,jdbcType=VARCHAR},
+      payer = #{record.payer,jdbcType=VARCHAR},
+      payee = #{record.payee,jdbcType=VARCHAR},
+      repay_source = #{record.repaySource,jdbcType=TINYINT},
+      bank_id = #{record.bankId,jdbcType=INTEGER},
+      bank_name = #{record.bankName,jdbcType=VARCHAR},
+      bank_branch = #{record.bankBranch,jdbcType=VARCHAR},
+      account_no = #{record.accountNo,jdbcType=VARCHAR},
+      bank_card_first_name_th = #{record.bankCardFirstNameTh,jdbcType=VARCHAR},
+      bank_card_last_name_th = #{record.bankCardLastNameTh,jdbcType=VARCHAR},
+      bank_card_first_name_en = #{record.bankCardFirstNameEn,jdbcType=VARCHAR},
+      bank_card_last_name_en = #{record.bankCardLastNameEn,jdbcType=VARCHAR},
+      system_remark = #{record.systemRemark,jdbcType=VARCHAR},
+      company_bank_name = #{record.companyBankName,jdbcType=VARCHAR},
+      company_account_no = #{record.companyAccountNo,jdbcType=VARCHAR},
+      company_name = #{record.companyName,jdbcType=VARCHAR},
+      company_bank_branch = #{record.companyBankBranch,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zml.demo.producer.dao.model.ORepay">
+    update o_repay
+    <set>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="repayOrderId != null">
+        repay_order_id = #{repayOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentId != null">
+        payment_id = #{paymentId,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdOrderId != null">
+        third_order_id = #{thirdOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="repayAmount != null">
+        repay_amount = #{repayAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="repayTime != null">
+        repay_time = #{repayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="confirmTime != null">
+        confirm_time = #{confirmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reviewStatus != null">
+        review_status = #{reviewStatus,jdbcType=TINYINT},
+      </if>
+      <if test="repayStatus != null">
+        repay_status = #{repayStatus,jdbcType=TINYINT},
+      </if>
+      <if test="repayWay != null">
+        repay_way = #{repayWay,jdbcType=VARCHAR},
+      </if>
+      <if test="repayChannel != null">
+        repay_channel = #{repayChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="repayThirdPartyChannel != null">
+        repay_third_party_channel = #{repayThirdPartyChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="repayResult != null">
+        repay_result = #{repayResult,jdbcType=VARCHAR},
+      </if>
+      <if test="payProofUrl != null">
+        pay_proof_url = #{payProofUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="payProofStatus != null">
+        pay_proof_status = #{payProofStatus,jdbcType=TINYINT},
+      </if>
+      <if test="uploadTime != null">
+        upload_time = #{uploadTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="userRepayAmount != null">
+        user_repay_amount = #{userRepayAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="userRepayTime != null">
+        user_repay_time = #{userRepayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="repayType != null">
+        repay_type = #{repayType,jdbcType=TINYINT},
+      </if>
+      <if test="qrCode != null">
+        qr_code = #{qrCode,jdbcType=VARCHAR},
+      </if>
+      <if test="payer != null">
+        payer = #{payer,jdbcType=VARCHAR},
+      </if>
+      <if test="payee != null">
+        payee = #{payee,jdbcType=VARCHAR},
+      </if>
+      <if test="repaySource != null">
+        repay_source = #{repaySource,jdbcType=TINYINT},
+      </if>
+      <if test="bankId != null">
+        bank_id = #{bankId,jdbcType=INTEGER},
+      </if>
+      <if test="bankName != null">
+        bank_name = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankBranch != null">
+        bank_branch = #{bankBranch,jdbcType=VARCHAR},
+      </if>
+      <if test="accountNo != null">
+        account_no = #{accountNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCardFirstNameTh != null">
+        bank_card_first_name_th = #{bankCardFirstNameTh,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCardLastNameTh != null">
+        bank_card_last_name_th = #{bankCardLastNameTh,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCardFirstNameEn != null">
+        bank_card_first_name_en = #{bankCardFirstNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCardLastNameEn != null">
+        bank_card_last_name_en = #{bankCardLastNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="systemRemark != null">
+        system_remark = #{systemRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="companyBankName != null">
+        company_bank_name = #{companyBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyAccountNo != null">
+        company_account_no = #{companyAccountNo,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null">
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyBankBranch != null">
+        company_bank_branch = #{companyBankBranch,jdbcType=VARCHAR},
+      </if>
+      <if test="qrCodeData != null">
+        qr_code_data = #{qrCodeData,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zml.demo.producer.dao.model.ORepay">
+    update o_repay
+    set create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=VARCHAR},
+      order_id = #{orderId,jdbcType=VARCHAR},
+      repay_order_id = #{repayOrderId,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      payment_id = #{paymentId,jdbcType=VARCHAR},
+      third_order_id = #{thirdOrderId,jdbcType=VARCHAR},
+      repay_amount = #{repayAmount,jdbcType=DECIMAL},
+      repay_time = #{repayTime,jdbcType=TIMESTAMP},
+      confirm_time = #{confirmTime,jdbcType=TIMESTAMP},
+      review_status = #{reviewStatus,jdbcType=TINYINT},
+      repay_status = #{repayStatus,jdbcType=TINYINT},
+      repay_way = #{repayWay,jdbcType=VARCHAR},
+      repay_channel = #{repayChannel,jdbcType=VARCHAR},
+      repay_third_party_channel = #{repayThirdPartyChannel,jdbcType=VARCHAR},
+      repay_result = #{repayResult,jdbcType=VARCHAR},
+      pay_proof_url = #{payProofUrl,jdbcType=VARCHAR},
+      pay_proof_status = #{payProofStatus,jdbcType=TINYINT},
+      upload_time = #{uploadTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      user_repay_amount = #{userRepayAmount,jdbcType=DECIMAL},
+      user_repay_time = #{userRepayTime,jdbcType=TIMESTAMP},
+      repay_type = #{repayType,jdbcType=TINYINT},
+      qr_code = #{qrCode,jdbcType=VARCHAR},
+      payer = #{payer,jdbcType=VARCHAR},
+      payee = #{payee,jdbcType=VARCHAR},
+      repay_source = #{repaySource,jdbcType=TINYINT},
+      bank_id = #{bankId,jdbcType=INTEGER},
+      bank_name = #{bankName,jdbcType=VARCHAR},
+      bank_branch = #{bankBranch,jdbcType=VARCHAR},
+      account_no = #{accountNo,jdbcType=VARCHAR},
+      bank_card_first_name_th = #{bankCardFirstNameTh,jdbcType=VARCHAR},
+      bank_card_last_name_th = #{bankCardLastNameTh,jdbcType=VARCHAR},
+      bank_card_first_name_en = #{bankCardFirstNameEn,jdbcType=VARCHAR},
+      bank_card_last_name_en = #{bankCardLastNameEn,jdbcType=VARCHAR},
+      system_remark = #{systemRemark,jdbcType=VARCHAR},
+      company_bank_name = #{companyBankName,jdbcType=VARCHAR},
+      company_account_no = #{companyAccountNo,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      company_bank_branch = #{companyBankBranch,jdbcType=VARCHAR},
+      qr_code_data = #{qrCodeData,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zml.demo.producer.dao.model.ORepay">
+    update o_repay
+    set create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=VARCHAR},
+      order_id = #{orderId,jdbcType=VARCHAR},
+      repay_order_id = #{repayOrderId,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      payment_id = #{paymentId,jdbcType=VARCHAR},
+      third_order_id = #{thirdOrderId,jdbcType=VARCHAR},
+      repay_amount = #{repayAmount,jdbcType=DECIMAL},
+      repay_time = #{repayTime,jdbcType=TIMESTAMP},
+      confirm_time = #{confirmTime,jdbcType=TIMESTAMP},
+      review_status = #{reviewStatus,jdbcType=TINYINT},
+      repay_status = #{repayStatus,jdbcType=TINYINT},
+      repay_way = #{repayWay,jdbcType=VARCHAR},
+      repay_channel = #{repayChannel,jdbcType=VARCHAR},
+      repay_third_party_channel = #{repayThirdPartyChannel,jdbcType=VARCHAR},
+      repay_result = #{repayResult,jdbcType=VARCHAR},
+      pay_proof_url = #{payProofUrl,jdbcType=VARCHAR},
+      pay_proof_status = #{payProofStatus,jdbcType=TINYINT},
+      upload_time = #{uploadTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      user_repay_amount = #{userRepayAmount,jdbcType=DECIMAL},
+      user_repay_time = #{userRepayTime,jdbcType=TIMESTAMP},
+      repay_type = #{repayType,jdbcType=TINYINT},
+      qr_code = #{qrCode,jdbcType=VARCHAR},
+      payer = #{payer,jdbcType=VARCHAR},
+      payee = #{payee,jdbcType=VARCHAR},
+      repay_source = #{repaySource,jdbcType=TINYINT},
+      bank_id = #{bankId,jdbcType=INTEGER},
+      bank_name = #{bankName,jdbcType=VARCHAR},
+      bank_branch = #{bankBranch,jdbcType=VARCHAR},
+      account_no = #{accountNo,jdbcType=VARCHAR},
+      bank_card_first_name_th = #{bankCardFirstNameTh,jdbcType=VARCHAR},
+      bank_card_last_name_th = #{bankCardLastNameTh,jdbcType=VARCHAR},
+      bank_card_first_name_en = #{bankCardFirstNameEn,jdbcType=VARCHAR},
+      bank_card_last_name_en = #{bankCardLastNameEn,jdbcType=VARCHAR},
+      system_remark = #{systemRemark,jdbcType=VARCHAR},
+      company_bank_name = #{companyBankName,jdbcType=VARCHAR},
+      company_account_no = #{companyAccountNo,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      company_bank_branch = #{companyBankBranch,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
